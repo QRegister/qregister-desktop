@@ -5,7 +5,7 @@ qr = qrcode.QRCode(
     box_size=10,
     border=4,
 )
-qr.add_data('test')
+qr.add_data('Seni seviyorum <3')
 qr.make(fit=True)
 
 img = qr.make_image(fill_color="black", back_color="white")
