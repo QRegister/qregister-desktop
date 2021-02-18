@@ -1,9 +1,9 @@
 from tkinter import *
 
 import pyqrcode
-from PIL import ImageTk
 
 window = Tk()
+window.attributes('-fullscreen', True)
 window.title("Test")
 window.geometry("600x600")
 
