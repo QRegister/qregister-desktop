@@ -16,17 +16,17 @@ def close():
 
 def generate():
     qr = pyqrcode.create("test")
-    photo = BitmapImage(data=qr.xbm(scale=32))
+    photo = BitmapImage(data=qr.xbm(scale=14))
     qr_image.config(image=photo)
     qr_image.photo = photo
 
 
-button = Button(window, text="Show", width=10, height=5, command=generate)
-button.grid(row=0, column=0, padx=10, pady=10)
+button = Button(window, text="Show", width=4, height=4, command=generate)
+button.grid(row=0, column=0, padx=3, pady=3)
 
-button = Button(window, text="Exit", width=10, height=5, command=close)
-button.grid(row=0, column=4, padx=10, pady=10)
+button = Button(window, text="Exit", width=4, height=4, command=close)
+button.grid(row=0, column=4, padx=3, pady=3)
 
 qr_image = Label(window)
-qr_image.grid(row=2, column=3, padx=3, pady=3)
+qr_image.grid(row=1, column=3, padx=0, pady=0)
 window.mainloop()
