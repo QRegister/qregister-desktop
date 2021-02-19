@@ -20,7 +20,10 @@ def close():
 def generate():
     doc = 'receipt-2'
     send_firebase(document_name=doc)
+
+    price_text.config(state=tk.NORMAL)
     price_text.replace('1.0', tk.END, "Total: $78", "tag-center")
+    price_text.config(state=tk.DISABLED)
 
     qr = pyqrcode.create(doc)
     photo = tk.BitmapImage(data=qr.xbm(scale=12))
@@ -41,9 +44,10 @@ button_exit.grid(row=0, column=4, padx=5, pady=5)
 price_text = tk.Text(window, width=20, height=1, font=("Helvetica", 25))
 price_text.tag_configure('tag-center', justify='center')
 price_text.insert(tk.END, "Please scan QR", "tag-center")
-price_text.grid(row=1, column=3, padx=3, pady=3)
+price_text.config(state=tk.DISABLED)
+price_text.grid(row=0, column=3, padx=3, pady=3)
 
 qr_image = tk.Label(window)
-qr_image.grid(row=2, column=3, padx=0, pady=0)
+qr_image.grid(row=1, column=3, padx=0, pady=0)
 
 window.mainloop()
