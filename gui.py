@@ -16,7 +16,7 @@ def close():
 
 def generate():
     qr = pyqrcode.create("test")
-    photo = BitmapImage(data=qr.xbm(scale=14))
+    photo = BitmapImage(data=qr.xbm(scale=12))
     qr_image.config(image=photo)
     qr_image.photo = photo
 
