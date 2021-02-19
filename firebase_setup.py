@@ -16,34 +16,28 @@ def firebase_init():
     return db
 
 
-def send_data(db, collection_name: str, document_name: str):
+def send_data(
+        db,
+        collection_name: str,
+        document_name: str,
+        cashier_name: str,
+        market_name: str,
+        market_address: str,
+        total_price: float,
+        product_list: list,
+):
     ref = db.collection(collection_name).document(document_name)
 
-    ref.set({
+    data = {
         'date': datetime.datetime.now(),
-        'cashier-name': 'Ahmet',
-        'market-address': 'adres',
-        'market': 'Şok ODTÜ',
-        'qr-secret': 'lorem',
-        'total-price': 50,
-        'products': {
-            'product-1': {
-                'price': 10,
-                'name': 'Örnek Ürün 1',
-                'count': 1
-            },
-            'product-2': {
-                'price': 15,
-                'name': 'Örnek Ürün 2',
-                'count': 2
-            },
-            'product-3': {
-                'price': 25,
-                'name': 'Örnek Ürün 2',
-                'count': 2
-            },
-        },
-    })
+        'cashier-name': cashier_name,
+        'market': market_name,
+        'market-address': market_address,
+        'total-price': total_price,
+        'products': product_list,
+    }
+
+    ref.set(data)
 
 # db = firebase_cred()
 # send_data(db=db, collection_name='test', document_name='receipt-2')

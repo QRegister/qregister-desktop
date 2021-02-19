@@ -2,6 +2,7 @@ import pyqrcode
 import tkinter as tk
 
 from firebase_setup import send_data, firebase_init
+from read_inventory import generate_receipt
 
 db = firebase_init()
 
@@ -19,10 +20,13 @@ def close():
 
 def generate():
     doc = 'receipt-2'
-    send_firebase(document_name=doc)
+
+    product_list, total_price = generate_receipt()
+
+    send_firebase(document_name=doc, product_list=product_list, total_price=total_price)
 
     price_text.config(state=tk.NORMAL)
-    price_text.replace('1.0', tk.END, "Total: $78", "tag-center")
+    price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
     price_text.config(state=tk.DISABLED)
 
     qr = pyqrcode.create(doc)
@@ -31,8 +35,17 @@ def generate():
     qr_image.photo = photo
 
 
-def send_firebase(document_name: str):
-    send_data(db=db, collection_name='market', document_name=document_name)
+def send_firebase(document_name: str, product_list: list, total_price: float):
+    send_data(
+        db=db,
+        collection_name='market',
+        document_name=document_name,
+        cashier_name='Deniz',
+        market_name='ŞOK ODTÜ',
+        market_address='ODTÜ',
+        total_price=total_price,
+        product_list=product_list
+    )
 
 
 button_generate = tk.Button(window, text="Show", width=6, height=4, command=generate)
