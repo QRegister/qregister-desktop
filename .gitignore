@@ -1,3 +1,4 @@
 /.idea
 /qr_generator/
 /serviceAccountKey.json
+/__pycache__
