@@ -1,7 +1,7 @@
 from random import randint
 
 
-def generate_receipt() -> list:
+def generate_receipt() -> (list, int):
     inventory_txt = open('inventory.txt', 'r')
     inventory = inventory_txt.readlines()
 
