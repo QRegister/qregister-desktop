@@ -11,7 +11,7 @@ def generate_receipt() -> (list, int):
         product = {}
         number, name, unit_price, unit_of_measurement = line.strip().split('?')
 
-        unit_price = float("%0.2f" % float(unit_price))
+        unit_price = round(float(unit_price), 2)
 
         count = randint(1, 5)
 
@@ -22,4 +22,5 @@ def generate_receipt() -> (list, int):
         products.append(product)
 
         total_price += count * unit_price
-    return products, total_price
+
+    return products, round(float(total_price), 2)
