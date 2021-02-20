@@ -12,7 +12,12 @@ def read_inventory() -> list:
     return inventory_txt.readlines()
 
 
-def convert_inventory_to_list():
+def convert_inventory_to_list() -> list:
+    """
+    Convert inventory to list
+
+    :return: List of dict of inventory items
+    """
     products = []
     inventory = read_inventory()
     for i, line in enumerate(inventory):
@@ -106,8 +111,7 @@ def generate_sample_receipt() -> dict:
 
     return receipt
 
-
-#sample = generate_sample_receipt()
-#print(sample)
-#print(generate_hash(receipt=sample))
-#print(convert_receipt_to_firebase(receipt=sample))
+# sample = generate_sample_receipt()
+# print(sample)
+# print(generate_hash(receipt=sample))
+# print(convert_receipt_to_firebase(receipt=sample))
