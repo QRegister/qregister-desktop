@@ -186,7 +186,7 @@ qr_image.grid(row=1, column=3, padx=0, pady=0)
 
 # Store logo
 store_logo = tk.Label(window)
-store_logo.place(x=50, y=150)
+store_logo.place(x=50, y=175)
 
 qregister_logo = tk.Label(window)
 qregister_logo.place(x=575, y=150)
