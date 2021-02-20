@@ -1,15 +1,14 @@
+import random
 from random import randint
 
 
-def read_inventory() -> list:
+def read_lines(file: str) -> list:
     """
-    Read inventory from 'inventory.txt'
+    Read lines from 'file'.txt'
 
-    :return: Lines of 'inventory.txt'
+    :return:
     """
-
-    inventory_txt = open('inventory.txt', 'r')
-    return inventory_txt.readlines()
+    return open(f'{file}.txt', 'r').readlines()
 
 
 def convert_inventory_to_list() -> list:
@@ -20,8 +19,8 @@ def convert_inventory_to_list() -> list:
     """
 
     products = []
-    inventory = read_inventory()
-    for i, line in enumerate(inventory):
+    inventory = read_lines('inventory')
+    for line in inventory:
         product = {}
         item_code, barcode_number, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
 
@@ -38,6 +37,33 @@ def convert_inventory_to_list() -> list:
         products.append(product)
 
     return products
+
+
+def convert_stores_to_list() -> list:
+    """
+    Convert stores to list
+
+    :return: List of dict of store items
+    """
+
+    store_list = []
+    stores = read_lines('stores')
+
+    for line in stores:
+        store = {}
+        item_code, slag, name, location, address, id, location_id = line.strip().split('?')
+
+        store['address'] = address
+        store['id'] = id
+        store['item-code'] = item_code
+        store['location'] = location
+        store['location-id'] = location_id
+        store['name'] = name
+        store['slag'] = slag
+
+        store_list.append(store)
+
+    return store_list
 
 
 def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
@@ -120,3 +146,9 @@ def generate_sample_receipt() -> dict:
         generate_sample_receipt()
     else:
         return receipt
+
+
+test = convert_stores_to_list()
+stores = random.choice(test)
+
+print(stores)
