@@ -109,7 +109,7 @@ def generate_qr() -> None:
     path = root + '/logos/' + store_slag + '.png'
 
     img = Image.open(path)
-    img = img.resize((150, 150), Image.ANTIALIAS)
+    img = img.thumbail((150, 150), Image.ANTIALIAS)
 
     photo = ImageTk.PhotoImage(img)
     store_logo.config(image=photo)
