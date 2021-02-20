@@ -8,8 +8,7 @@ db = firebase_init()
 
 window = tk.Tk()
 window.attributes('-fullscreen', True)
-window.title("Test")
-# window.geometry("600x600")
+window.title("QReceipt")
 window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
@@ -30,7 +29,7 @@ def generate():
     price_text.config(state=tk.DISABLED)
 
     qr = pyqrcode.create(receipt_id)
-    photo = tk.BitmapImage(data=qr.xbm(scale=12))
+    photo = tk.BitmapImage(data=qr.xbm(scale=11))
     qr_image.config(image=photo)
     qr_image.photo = photo
 
