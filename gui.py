@@ -95,7 +95,7 @@ def generate_qr() -> None:
 
     # Update price text
     price_text.config(state=tk.NORMAL)
-    price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
+    price_text.replace('1.0', tk.END, f"Total: {total_price}₺", "tag-center")
     price_text.config(state=tk.DISABLED)
 
     # QR generation
