@@ -103,9 +103,13 @@ def generate_qr() -> None:
     qr_image.photo = photo
 
     # Brand image
-    # load = Image.open("a101.png")
-    # render = ImageTk.PhotoImage(load)
-    # brand_image.photo = render
+    path = 'a101.png'
+    img = Image.open(path)
+    img = img.resize((200, 200), Image.ANTIALIAS)
+
+    photo = ImageTk.PhotoImage(img)
+    store_logo.config(image=photo)
+    store_logo.image = photo
 
     # Deactivate generation button for 2 seconds
     button_generate['state'] = 'disabled'
@@ -170,7 +174,10 @@ qr_image = tk.Label(window)
 qr_image.grid(row=1, column=3, padx=0, pady=0)
 
 # # Brand image
-# brand_image = tk.Label(window)
+
+# canvas.create_image(40, 20, image=photo)
+store_logo = tk.Label(window)
+store_logo.place(x=100, y=100)
 # brand_image.grid(row=1, column=2, padx=0, pady=0)
 
 window.mainloop()
