@@ -98,14 +98,14 @@ def generate_qr() -> None:
 
     # QR generation
     qr = pyqrcode.create(qr_secret)
-    photo = tk.BitmapImage(data=qr.xbm(scale=9))
+    photo = tk.BitmapImage(data=qr.xbm(scale=8))
     qr_image.config(image=photo)
     qr_image.photo = photo
 
     # Brand image
     path = 'a101.png'
     img = Image.open(path)
-    img = img.resize((200, 200), Image.ANTIALIAS)
+    img = img.resize((150,150), Image.ANTIALIAS)
 
     photo = ImageTk.PhotoImage(img)
     store_logo.config(image=photo)
@@ -177,7 +177,7 @@ qr_image.grid(row=1, column=3, padx=0, pady=0)
 
 # canvas.create_image(40, 20, image=photo)
 store_logo = tk.Label(window)
-store_logo.place(x=100, y=100)
+store_logo.place(x=50, y=150)
 # brand_image.grid(row=1, column=2, padx=0, pady=0)
 
 window.mainloop()
