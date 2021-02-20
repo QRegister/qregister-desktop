@@ -17,7 +17,7 @@ db = firebase_init()
 # Tkinter initialization
 window = tk.Tk()
 window.attributes('-fullscreen', True)
-window.title("QReceipt")
+window.title("QRegister")
 window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
@@ -82,16 +82,16 @@ def generate_qr() -> None:
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
 
     # Send all data to Firebase
-    # send_firebase(
-    #     cashier_name=cashier_name,
-    #     product_list=product_list,
-    #     qr_secret=qr_secret,
-    #     receipt_id=receipt_id,
-    #     store_id=store_id,
-    #     store_location_id=store_location_id,
-    #     total_price=total_price,
-    #     total_tax=total_tax,
-    # )
+    send_firebase(
+        cashier_name=cashier_name,
+        product_list=product_list,
+        qr_secret=qr_secret,
+        receipt_id=receipt_id,
+        store_id=store_id,
+        store_location_id=store_location_id,
+        total_price=total_price,
+        total_tax=total_tax,
+    )
 
     # Update price text
     price_text.config(state=tk.NORMAL)
