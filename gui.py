@@ -27,7 +27,7 @@ def generate():
     print(total_price)
 
     price_text.config(state=tk.NORMAL)
-    price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
+    #price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
     price_text.config(state=tk.DISABLED)
 
     qr = pyqrcode.create(receipt_id)
