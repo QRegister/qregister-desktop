@@ -1,3 +1,4 @@
+import os
 import random
 import calendar
 import time
@@ -55,6 +56,7 @@ def generate_qr() -> None:
     store = random.choice(all_stores)
 
     store_id = store['id']
+    store_slag = store['slag']
     store_item_code = store['item-code']
     store_location_id = store['location-id']
 
@@ -80,16 +82,16 @@ def generate_qr() -> None:
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
 
     # Send all data to Firebase
-    send_firebase(
-        cashier_name=cashier_name,
-        product_list=product_list,
-        qr_secret=qr_secret,
-        receipt_id=receipt_id,
-        store_id=store_id,
-        store_location_id=store_location_id,
-        total_price=total_price,
-        total_tax=total_tax,
-    )
+    # send_firebase(
+    #     cashier_name=cashier_name,
+    #     product_list=product_list,
+    #     qr_secret=qr_secret,
+    #     receipt_id=receipt_id,
+    #     store_id=store_id,
+    #     store_location_id=store_location_id,
+    #     total_price=total_price,
+    #     total_tax=total_tax,
+    # )
 
     # Update price text
     price_text.config(state=tk.NORMAL)
@@ -102,10 +104,12 @@ def generate_qr() -> None:
     qr_image.config(image=photo)
     qr_image.photo = photo
 
-    # Brand image
-    path = 'a101.png'
+    # Store logo
+    root = os.getcwd()
+    path = root + '/logos/' + store_slag + '.png'
+
     img = Image.open(path)
-    img = img.resize((150,150), Image.ANTIALIAS)
+    img = img.resize((150, 150), Image.ANTIALIAS)
 
     photo = ImageTk.PhotoImage(img)
     store_logo.config(image=photo)
@@ -129,11 +133,12 @@ def send_firebase(
     """
     Sending data to firebase
 
-    :param brand_id: Brand id
+    :param cashier_name: Cashier name
     :param product_list:
     :param qr_secret: QR secret
     :param receipt_id: Receipt id
     :param store_id: Store id
+    :param store_location_id: Store location id
     :param total_price: Total price of the receipt
     :param total_tax: Total tax of the receipt
     :return: None
@@ -173,11 +178,8 @@ price_text.grid(row=0, column=3, padx=3, pady=3)
 qr_image = tk.Label(window)
 qr_image.grid(row=1, column=3, padx=0, pady=0)
 
-# # Brand image
-
-# canvas.create_image(40, 20, image=photo)
+# Store logo
 store_logo = tk.Label(window)
 store_logo.place(x=50, y=150)
-# brand_image.grid(row=1, column=2, padx=0, pady=0)
 
 window.mainloop()
