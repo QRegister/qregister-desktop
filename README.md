@@ -1,4 +1,4 @@
-# QReceipt Desktop app
+# QRegister Desktop app
 
 - Inventor reading
 - QR Code generation
