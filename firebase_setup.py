@@ -16,38 +16,43 @@ def firebase_init():
     return db
 
 
-def get_data(db, market_id):
-    ref = db.collection('markets').document(market_id)
+def get_data(db, brand_id, store_id):
+    brand_ref = db.collection('stores').document(brand_id)
+    brand_detail = brand_ref.get().to_dict()
+    brand = brand_detail['name']
 
-    market_detail = ref.get().to_dict()
+    store_ref = brand_ref.collection('store-locations').document(store_id)
+    store_detail = store_ref.get().to_dict()
 
-    market_name = market_detail['name']
-    market_address = market_detail['address']
+    store_name = store_detail['name']
+    store_address = store_detail['address']
 
-    return market_name, market_address
+    return brand, store_name, store_address
 
 
 def send_data(
         db,
         receipt_id: str,
-        market_id: str,
         cashier_name: str,
-        market_name: str,
-        market_address: str,
+        product_list: list,
+        brand_id: str,
+        store_id: str,
         total_price: float,
         total_tax: float,
-        product_list: list,
 ):
-    ref = db.collection('markets').document(market_id).collection('receipts').document(receipt_id)
+    brand, store_name, store_address = get_data(db=db, brand_id=brand_id, store_id=store_id)
 
+    store_ref = db.collection('stores').document(brand_id).collection('store-locations').document(store_id)
+    receipt_ref = store_ref.collection('receipts').document(receipt_id)
     data = {
-        'date': datetime.datetime.now(),
+        'brand': brand,
         'cashier-name': cashier_name,
-        'market': market_name,
-        'market-address': market_address,
+        'date': datetime.datetime.now(),
+        'store-location': store_name,
+        'store-address': store_address,
+        'products': product_list,
         'total-price': total_price,
         'total-tax': total_tax,
-        'products': product_list,
     }
     print(data)
-    ref.set(data)
+    receipt_ref.set(data)

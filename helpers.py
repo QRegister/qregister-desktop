@@ -18,6 +18,7 @@ def convert_inventory_to_list() -> list:
 
     :return: List of dict of inventory items
     """
+
     products = []
     inventory = read_inventory()
     for i, line in enumerate(inventory):
@@ -32,7 +33,7 @@ def convert_inventory_to_list() -> list:
         product['item-code'] = item_code
         product['tax-rate'] = tax_rate
         product['unit-price'] = unit_price
-        product['unit-of-measurement'] = unit_of_measurement
+        product['unit-of-measurement'] = unit_of_measurement.upper()
 
         products.append(product)
 
@@ -101,6 +102,12 @@ def generate_hash(receipt: dict) -> str:
 
 
 def generate_sample_receipt() -> dict:
+    """
+    Generate sample receipt dict
+
+    :return: Receipt dict in form "{'barcode_number': 'count'}"
+    """
+
     inventory = convert_inventory_to_list()
     receipt = {}
 
@@ -109,9 +116,7 @@ def generate_sample_receipt() -> dict:
             count = randint(1, 5)
             receipt[product.get('barcode-number')] = count
 
-    return receipt
-
-# sample = generate_sample_receipt()
-# print(sample)
-# print(generate_hash(receipt=sample))
-# print(convert_receipt_to_firebase(receipt=sample))
+    if not bool(receipt):
+        generate_sample_receipt()
+    else:
+        return receipt

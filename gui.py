@@ -12,28 +12,32 @@ window.title("QReceipt")
 window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
+brand_id = 'GwukmSESE5rrvQpEXa39'
+store_id = 'YAUQCOP3vm6yDhtMON6k'
+
 
 def close():
     window.destroy()
 
 
+def activate_generate_button():
+    button_generate['state'] = 'normal'
+
+
 def generate_receipt():
-    market_id = 'FSBN4CPaa4Jtntwc19dB'
     receipt_id = str(uuid.uuid4())[:18]
 
     receipt = generate_sample_receipt()
     qr_hash = generate_hash(receipt=receipt)
+    qr_hash += receipt_id + '&'
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
 
     send_firebase(
         product_list=product_list,
         total_price=total_price,
         total_tax=total_tax,
-        market_id=market_id,
         receipt_id=receipt_id
     )
-
-    print(total_price)
 
     price_text.config(state=tk.NORMAL)
     price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
@@ -44,22 +48,24 @@ def generate_receipt():
     qr_image.config(image=photo)
     qr_image.photo = photo
 
+    button_generate['state'] = 'disabled'
+    window.after(2000, activate_generate_button)
 
-def send_firebase(product_list: list, total_price: float, total_tax: float, market_id: str, receipt_id: str):
-    market_name, market_address = get_data(db=db, market_id=market_id)
 
+def send_firebase(product_list: list, total_price: float, total_tax: float, receipt_id: str):
     send_data(
         db=db,
-        market_id=market_id,
-        receipt_id=receipt_id,
+        brand_id=brand_id,
         cashier_name='Deniz',
-        market_name=market_name,
-        market_address=market_address,
+        product_list=product_list,
+        receipt_id=receipt_id,
+        store_id=store_id,
         total_price=total_price,
         total_tax=total_tax,
-        product_list=product_list
     )
 
+
+# Tkinter GUI
 
 button_generate = tk.Button(window, text="Show", width=6, height=4, command=generate_receipt)
 button_generate.grid(row=0, column=0, padx=5, pady=5)
