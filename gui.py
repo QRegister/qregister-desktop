@@ -8,7 +8,7 @@ import uuid
 
 from PIL import Image, ImageTk
 
-from firebase_setup import send_data, firebase_init, get_data
+from firebase_setup import send_data, firebase_init
 from helpers import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list
 
 # Firebase initialization
@@ -22,19 +22,21 @@ window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
 
-def close():
+def close() -> None:
     """
     Exit from app
-    :return:
+
+    :return: None
     """
 
     window.destroy()
 
 
-def activate_generate_button():
+def activate_generate_button() -> None:
     """
     Activate "Generate" button
-    :return:
+
+    :return: None
     """
 
     button_generate['state'] = 'normal'
@@ -78,7 +80,7 @@ def generate_qr() -> None:
     # Add products
     qr_secret += '-' + generate_hash(receipt=receipt)
 
-    # TODO SETTING QR_SECRET TO RECEIPT ID
+    # TODO UNCOMMENT FOR HASH QR
     qr_secret = receipt_id
 
     # Convert receipt data to list and calculate total price & total tax

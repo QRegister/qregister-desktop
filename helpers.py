@@ -1,5 +1,4 @@
-import random
-from random import randint
+from random import randint, uniform
 
 
 def read_lines(file: str) -> list:
@@ -22,13 +21,13 @@ def convert_inventory_to_list() -> list:
     inventory = read_lines('inventory')
     for line in inventory:
         product = {}
-        item_code, barcode_number, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
+        item_code, barcode, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
 
         tax_rate = int(tax_rate)
         unit_price = round(float(unit_price), 2)
 
         product['name'] = name
-        product['barcode'] = barcode_number
+        product['barcode'] = barcode
         product['item-code'] = item_code
         product['tax-rate'] = tax_rate
         product['unit-price'] = unit_price
@@ -83,12 +82,12 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
     total_tax = 0
 
     for product in inventory:
-        barcode = product.get('barcode-number')
+        barcode = product.get('barcode')
 
         if barcode in receipt.keys():
             item = product
 
-            count = int(receipt.get(barcode))
+            count = round(float(receipt.get(barcode)), 2)
             unit_price = item.get('unit-price')
             tax_rate = item.get('tax-rate')
 
@@ -117,7 +116,7 @@ def generate_hash(receipt: dict) -> str:
     qr_hash = ''
 
     for product in inventory:
-        barcode = product.get('barcode-number')
+        barcode = product.get('barcode')
 
         if barcode in receipt.keys():
             item_code = str(product.get('item-code'))
@@ -131,7 +130,7 @@ def generate_sample_receipt() -> dict:
     """
     Generate sample receipt dict
 
-    :return: Receipt dict in form "{'barcode_number': 'count'}"
+    :return: Receipt dict in form "{'barcode': 'count'}"
     """
 
     inventory = convert_inventory_to_list()
@@ -139,8 +138,11 @@ def generate_sample_receipt() -> dict:
 
     for product in inventory:
         if randint(0, 1) == 1:
-            count = randint(1, 5)
-            receipt[product.get('barcode-number')] = count
+            if product.get('unit-of-measurement') == 'KG':
+                count = uniform(1, 5)
+            else:
+                count = randint(1, 5)
+            receipt[product.get('barcode')] = count
 
     if not bool(receipt):
         generate_sample_receipt()
