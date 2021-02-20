@@ -35,6 +35,7 @@ def send_data(
         market_name: str,
         market_address: str,
         total_price: float,
+        total_tax: float,
         product_list: list,
 ):
     ref = db.collection('markets').document(market_id).collection('receipts').document(receipt_id)
@@ -45,6 +46,7 @@ def send_data(
         'market': market_name,
         'market-address': market_address,
         'total-price': total_price,
+        'total-tax': total_tax,
         'products': product_list,
     }
     print(data)

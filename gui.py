@@ -21,8 +21,14 @@ def generate():
     market_id = 'FSBN4CPaa4Jtntwc19dB'
     receipt_id = str(uuid.uuid4())[:18]
 
-    product_list, total_price = generate_receipt()
-    send_firebase(product_list=product_list, total_price=total_price, market_id=market_id, receipt_id=receipt_id)
+    product_list, total_price, total_tax = generate_receipt()
+    send_firebase(
+        product_list=product_list,
+        total_price=total_price,
+        total_tax=total_tax,
+        market_id=market_id,
+        receipt_id=receipt_id
+    )
 
     print(total_price)
 
@@ -36,7 +42,7 @@ def generate():
     qr_image.photo = photo
 
 
-def send_firebase(product_list: list, total_price: float, market_id: str, receipt_id: str):
+def send_firebase(product_list: list, total_price: float, total_tax: float, market_id: str, receipt_id: str):
     market_name, market_address = get_data(db=db, market_id=market_id)
 
     send_data(
@@ -47,6 +53,7 @@ def send_firebase(product_list: list, total_price: float, market_id: str, receip
         market_name=market_name,
         market_address=market_address,
         total_price=total_price,
+        total_tax=total_tax,
         product_list=product_list
     )
 
