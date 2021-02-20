@@ -16,17 +16,28 @@ def firebase_init():
     return db
 
 
+def get_data(db, market_id):
+    ref = db.collection('markets').document(market_id)
+
+    market_detail = ref.get().to_dict()
+
+    market_name = market_detail['name']
+    market_address = market_detail['address']
+
+    return market_name, market_address
+
+
 def send_data(
         db,
-        collection_name: str,
-        document_name: str,
+        receipt_id: str,
+        market_id: str,
         cashier_name: str,
         market_name: str,
         market_address: str,
         total_price: float,
         product_list: list,
 ):
-    ref = db.collection(collection_name).document(document_name)
+    ref = db.collection('markets').document(market_id).collection('receipts').document(receipt_id)
 
     data = {
         'date': datetime.datetime.now(),
@@ -36,8 +47,5 @@ def send_data(
         'total-price': total_price,
         'products': product_list,
     }
-
+    print(data)
     ref.set(data)
-
-# db = firebase_cred()
-# send_data(db=db, collection_name='test', document_name='receipt-2')

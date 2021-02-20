@@ -1,7 +1,7 @@
 import pyqrcode
 import tkinter as tk
-
-from firebase_setup import send_data, firebase_init
+import uuid
+from firebase_setup import send_data, firebase_init, get_data
 from read_inventory import generate_receipt
 
 db = firebase_init()
@@ -19,30 +19,32 @@ def close():
 
 
 def generate():
-    doc = 'receipt-2'
+    market_id = 'FSBN4CPaa4Jtntwc19dB'
+    receipt_id = str(uuid.uuid4())
 
     product_list, total_price = generate_receipt()
-
-    send_firebase(document_name=doc, product_list=product_list, total_price=total_price)
+    send_firebase(product_list=product_list, total_price=total_price, market_id=market_id, receipt_id=receipt_id)
 
     price_text.config(state=tk.NORMAL)
     price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
     price_text.config(state=tk.DISABLED)
 
-    qr = pyqrcode.create(doc)
+    qr = pyqrcode.create(receipt_id)
     photo = tk.BitmapImage(data=qr.xbm(scale=12))
     qr_image.config(image=photo)
     qr_image.photo = photo
 
 
-def send_firebase(document_name: str, product_list: list, total_price: float):
+def send_firebase(product_list: list, total_price: float, market_id: str, receipt_id: str):
+    market_name, market_address = get_data(db=db, market_id=market_id)
+
     send_data(
         db=db,
-        collection_name='market',
-        document_name=document_name,
+        market_id=market_id,
+        receipt_id=receipt_id,
         cashier_name='Deniz',
-        market_name='ŞOK ODTÜ',
-        market_address='ODTÜ',
+        market_name=market_name,
+        market_address=market_address,
         total_price=total_price,
         product_list=product_list
     )
