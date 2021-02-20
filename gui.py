@@ -78,6 +78,9 @@ def generate_qr() -> None:
     # Add products
     qr_secret += '-' + generate_hash(receipt=receipt)
 
+    # TODO SETTING QR_SECRET TO RECEIPT ID
+    qr_secret = receipt_id
+
     # Convert receipt data to list and calculate total price & total tax
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
 
@@ -113,7 +116,7 @@ def generate_qr() -> None:
     store_logo.config(image=photo)
     store_logo.image = photo
 
-    #
+    # Logo
     path = 'qregister_logo.png'
     img = Image.open(path)
     img.thumbnail((200, 200), Image.ANTIALIAS)
