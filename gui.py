@@ -107,13 +107,19 @@ def generate_qr() -> None:
     # Store logo
     root = os.getcwd()
     path = root + '/logos/' + store_slag + '.png'
-
     img = Image.open(path)
     img.thumbnail((150, 150), Image.ANTIALIAS)
-
     photo = ImageTk.PhotoImage(img)
     store_logo.config(image=photo)
     store_logo.image = photo
+
+    #
+    path = 'qregister_logo.png'
+    img = Image.open(path)
+    img.thumbnail((150, 150), Image.ANTIALIAS)
+    photo = ImageTk.PhotoImage(img)
+    qregister_logo.config(image=photo)
+    qregister_logo.image = photo
 
     # Deactivate generation button for 2 seconds
     button_generate['state'] = 'disabled'
@@ -181,5 +187,8 @@ qr_image.grid(row=1, column=3, padx=0, pady=0)
 # Store logo
 store_logo = tk.Label(window)
 store_logo.place(x=50, y=150)
+
+qregister_logo = tk.Label(window)
+qregister_logo.place(x=600, y=150)
 
 window.mainloop()
