@@ -20,7 +20,7 @@ def close():
 
 def generate():
     market_id = 'FSBN4CPaa4Jtntwc19dB'
-    receipt_id = str(uuid.uuid4())
+    receipt_id = str(uuid.uuid4())[:18]
 
     product_list, total_price = generate_receipt()
     send_firebase(product_list=product_list, total_price=total_price, market_id=market_id, receipt_id=receipt_id)
