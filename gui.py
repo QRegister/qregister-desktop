@@ -2,7 +2,7 @@ import pyqrcode
 import tkinter as tk
 import uuid
 from firebase_setup import send_data, firebase_init, get_data
-from read_inventory import generate_sample_receipt, generate_hash
+from read_inventory import generate_sample_receipt, generate_hash, convert_receipt_to_firebase
 
 db = firebase_init()
 
@@ -23,7 +23,7 @@ def generate_receipt():
 
     receipt = generate_sample_receipt()
     qr_hash = generate_hash(receipt=receipt)
-
+    product_list = convert_receipt_to_firebase(receipt=receipt)
     send_firebase(
         product_list=product_list,
         total_price=total_price,

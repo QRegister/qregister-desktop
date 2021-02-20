@@ -2,6 +2,12 @@ from random import randint
 
 
 def read_inventory() -> list:
+    """
+    Read inventory from 'inventory.txt'
+
+    :return: Lines of 'inventory.txt'
+    """
+
     inventory_txt = open('inventory.txt', 'r')
     return inventory_txt.readlines()
 
@@ -28,9 +34,56 @@ def convert_inventory_to_list():
     return products
 
 
+def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
+    """
+    Add receipt data price and tax value. Then convert it to list.
+
+    :param receipt: Receipt dictionary
+    :return:
+        products: Products list
+        total_price: Total price of the receipt
+        total_tax: Total tax of the receipt
+    """
+
+    inventory = convert_inventory_to_list()
+    products = []
+    total_price = 0
+    total_tax = 0
+
+    for product in inventory:
+        barcode = product.get('barcode-number')
+
+        if barcode in receipt.keys():
+            item = product
+
+            count = int(receipt.get(barcode))
+            unit_price = item.get('unit-price')
+            tax_rate = item.get('tax-rate')
+
+            item['count'] = count
+
+            price_sum = count * unit_price
+            total_tax += price_sum * (tax_rate / 100.0)
+            total_price += price_sum
+
+            products.append(item)
+
+    total_price, total_tax = round(float(total_price), 2), round(float(total_tax), 2)
+
+    return products, total_price, total_tax
+
+
 def generate_hash(receipt: dict) -> str:
+    """
+    Generate hashed receipt from receipt dict.
+
+    :param receipt: Receipt dictionary
+    :return: qr_hash: Hashed receipt
+    """
+
     inventory = convert_inventory_to_list()
     qr_hash = ''
+
     for product in inventory:
         barcode = product.get('barcode-number')
 
@@ -42,7 +95,7 @@ def generate_hash(receipt: dict) -> str:
     return qr_hash
 
 
-def generate_sample_receipt():
+def generate_sample_receipt() -> dict:
     inventory = convert_inventory_to_list()
     receipt = {}
 
@@ -54,37 +107,7 @@ def generate_sample_receipt():
     return receipt
 
 
-def convert_receipt_to_firebase(receipt: dict):
-    inventory = convert_inventory_to_list()
-    products = []
-
-    for product in inventory:
-        barcode = product.get('barcode-number')
-
-        if barcode in receipt.keys():
-            item = product
-            item['count'] = int(receipt.get(barcode))
-            products.append(item)
-
-    return products
-
-
-# def generate_receipt() -> (list, int):
-#     inventory = convert_inventory_to_list()
-#     total_price = 0
-#     total_tax = 0
-#
-#     for product in inventory:
-#         count = randint(1, 5)
-#         product['count'] = count
-#
-#         price_sum = count * unit_price
-#         total_tax += price_sum * (tax_rate / 100.0)
-#         total_price += price_sum
-#
-#     return products, round(float(total_price), 2), round(float(total_tax), 2)
-
-sample = generate_sample_receipt()
-print(sample)
-print(generate_hash(receipt=sample))
-print(convert_receipt_to_firebase(receipt=sample))
+#sample = generate_sample_receipt()
+#print(sample)
+#print(generate_hash(receipt=sample))
+#print(convert_receipt_to_firebase(receipt=sample))
