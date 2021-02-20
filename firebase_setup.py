@@ -27,8 +27,8 @@ def get_data(db, store_id: str, store_location_id: str) -> (str, str, str):
     Getting store data from Firestore
 
     :param db:
-    :param store_location_id:
-    :param store_id:
+    :param store_location_id: Store location id
+    :param store_id: Store id
     :return:
     """
     store_ref = db.collection('stores').document(store_id)
@@ -61,12 +61,12 @@ def send_data(
     Sending data to Firestore
 
     :param db: Firestore client
-    :param brand_id: Unique brand id
     :param cashier_name: Cashier Name
     :param product_list: Product list
     :param qr_secret: Hashed QR code
     :param receipt_id: Unique receipt id
     :param store_id: Unique brand id
+    :param store_location_id: Unique store location id
     :param total_price: Total price of the receipt
     :param total_tax: Total tax of the receipt
     :return:

@@ -28,7 +28,7 @@ def convert_inventory_to_list() -> list:
         unit_price = round(float(unit_price), 2)
 
         product['name'] = name
-        product['barcode-number'] = barcode_number
+        product['barcode'] = barcode_number
         product['item-code'] = item_code
         product['tax-rate'] = tax_rate
         product['unit-price'] = unit_price
@@ -146,9 +146,3 @@ def generate_sample_receipt() -> dict:
         generate_sample_receipt()
     else:
         return receipt
-
-
-test = convert_stores_to_list()
-stores = random.choice(test)
-
-print(stores)
