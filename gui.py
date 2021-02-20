@@ -2,7 +2,7 @@ import pyqrcode
 import tkinter as tk
 import uuid
 from firebase_setup import send_data, firebase_init, get_data
-from read_inventory import generate_receipt
+from read_inventory import generate_sample_receipt, generate_hash
 
 db = firebase_init()
 
@@ -17,11 +17,13 @@ def close():
     window.destroy()
 
 
-def generate():
+def generate_receipt():
     market_id = 'FSBN4CPaa4Jtntwc19dB'
     receipt_id = str(uuid.uuid4())[:18]
 
-    product_list, total_price, total_tax = generate_receipt()
+    receipt = generate_sample_receipt()
+    qr_hash = generate_hash(receipt=receipt)
+
     send_firebase(
         product_list=product_list,
         total_price=total_price,
@@ -36,7 +38,7 @@ def generate():
     price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
     price_text.config(state=tk.DISABLED)
 
-    qr = pyqrcode.create(receipt_id)
+    qr = pyqrcode.create(qr_hash)
     photo = tk.BitmapImage(data=qr.xbm(scale=11))
     qr_image.config(image=photo)
     qr_image.photo = photo
@@ -58,7 +60,7 @@ def send_firebase(product_list: list, total_price: float, total_tax: float, mark
     )
 
 
-button_generate = tk.Button(window, text="Show", width=6, height=4, command=generate)
+button_generate = tk.Button(window, text="Show", width=6, height=4, command=generate_receipt)
 button_generate.grid(row=0, column=0, padx=5, pady=5)
 
 button_exit = tk.Button(window, text="Exit", width=6, height=4, command=close)
