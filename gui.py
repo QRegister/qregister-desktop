@@ -20,7 +20,7 @@ window.attributes('-fullscreen', True)
 window.title("QRegister")
 window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
-
+window.configure(background='white')
 
 def close():
     """
@@ -114,9 +114,9 @@ def generate_qr() -> None:
     store_logo.image = photo
 
     #
-    path = 'qregister_logo.png'
+    path = 'qregister_logo.jpg'
     img = Image.open(path)
-    img.thumbnail((150, 150), Image.ANTIALIAS)
+    img.thumbnail((200, 200), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(img)
     qregister_logo.config(image=photo)
     qregister_logo.image = photo
@@ -189,6 +189,6 @@ store_logo = tk.Label(window)
 store_logo.place(x=50, y=150)
 
 qregister_logo = tk.Label(window)
-qregister_logo.place(x=600, y=150)
+qregister_logo.place(x=575, y=150)
 
 window.mainloop()
