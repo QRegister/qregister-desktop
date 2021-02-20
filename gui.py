@@ -24,6 +24,8 @@ def generate():
     product_list, total_price = generate_receipt()
     send_firebase(product_list=product_list, total_price=total_price, market_id=market_id, receipt_id=receipt_id)
 
+    print(total_price)
+
     price_text.config(state=tk.NORMAL)
     price_text.replace('1.0', tk.END, f"Total: ${total_price}", "tag-center")
     price_text.config(state=tk.DISABLED)
