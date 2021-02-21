@@ -5,7 +5,7 @@
 ## Specs
 - Inventor reading from text files
 - Receipt generation according to inventory
-- QR Code generation includes all receipt data in encrypted form
+- QR Code generation which includes all receipt data in encrypted form
 - Accessing Firebase Firestore to record the receipt data for future usage
 - Supported many operating systems including Windows, OS X, Linux, Raspbian...
 
