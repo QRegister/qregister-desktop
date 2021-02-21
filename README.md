@@ -34,7 +34,8 @@ Yes. You will be able to view your receipts right away, even if you are disconne
 ### If I delete QRegister, will my previous receipts be deleted?
 
 No. We are keeping your old receipts saved and safe. If you ever remove the app and re-download, your receipts will still be available.
-Which details of paper receipts are featured on QRegister?
+
+### Which details of paper receipts are featured on QRegister?
 We store every information users and cashiers need in your electronic receipts. Specifically, we store the supermarket’s name, branch, and location; the products’ names, barcode numbers, quantity, fax rates, and prices; the purchase’s date, time, total fax, and total price.
 
 ### Is my data safe?
