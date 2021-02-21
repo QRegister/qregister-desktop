@@ -1,6 +1,6 @@
-<img src="https://github.com/QRegister/qregister-desktop/blob/main/qregister_logo.png" width="256">
 
 # QRegister Desktop app
+<img src="https://github.com/QRegister/qregister-desktop/blob/main/qregister_logo.png" width="256">
 
 - Inventor reading
 - QR Code generation
