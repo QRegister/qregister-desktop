@@ -48,6 +48,7 @@ You can receive support any time by contacting our support team via qregisterhel
 
 We would love to hear your feedback and answer your further questions. E-mail our team at qregisterhelp@gmail.com
 We are a devoted team of four engineering students.
+
 Humeyra Bodur, Alkım Dömeke, Deniz Karakay, Murat Kaş
 
 
