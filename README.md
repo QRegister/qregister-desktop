@@ -1,3 +1,5 @@
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+
 
 # QRegister Desktop 
 <img src="https://github.com/QRegister/qregister-desktop/blob/main/qregister_logo.png" width="256">
