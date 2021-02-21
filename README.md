@@ -11,12 +11,14 @@
 - Accessing Firebase Firestore to record the receipt data for future usage
 - Supported many operating systems including Windows, OS X, Linux, Raspbian...
 
-## Run
+## Run from command line
 
 Install requirements: 
+
 ```python install -r requirements.txt ```
 
 Run GUI from command line:
+
 ```python gui.py ```
 
 ## Frequently Asked Questions (FAQ)
