@@ -15,11 +15,11 @@
 
 **Install requirements:** 
 
-```python install -r requirements.txt ```
+- ```python install -r requirements.txt ```
 
 **Run GUI from command line:**
 
-```python gui.py ```
+- ```python gui.py ```
 
 ## Frequently Asked Questions (FAQ)
 
