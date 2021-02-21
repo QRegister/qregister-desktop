@@ -1,3 +1,5 @@
+<img src="https://github.com/QRegister/qregister-desktop/blob/main/qregister_logo.png" width="256">
+
 # QRegister Desktop app
 
 - Inventor reading
@@ -6,9 +8,9 @@
 
 ## Run
 
-Install requirements:
+Install requirements: 
 ```python install -r requirements.txt ```
 
-Run GUI:
+Run GUI from command line:
 ```python gui.py ```
 
