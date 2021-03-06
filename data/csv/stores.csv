@@ -1,8 +1,8 @@
 item-code,slug,name,location,address,id,location-id,currency
-1,sok,Sok,Sok ODTU,"Universiteler Mh., No:1 ODTU Ankara TR, 06800 Cankaya",GwukmSESE5rrvQpEXa39,YAUQCOP3vm6yDhtMON6k,USD
+1,sok,Sok,Sok ODTU,"Universiteler Mh., No:1 ODTU Ankara TR, 06800 Cankaya",XhYn03kJlgx74hrlJe9Y,YAUQCOP3vm6yDhtMON6k,USD
 2,metro,Metro,Metro Gaziemir,"Atibey, Akay Cd. No:282, 35410 Gaziemir/Izmir",IM6JPmGhT9hWdQNvfPOu,RB76AvYpV6w2m33mzinc,EUR
-3,carrefour,CarrefourSA,CarrefourSA Bakirkoy,"Marmara Forum AVM, Osmaniye Mah. Cobancesme Kosuyolu Bulv. No: 3, 34146 Bakirkoy/Istanbul",LvGh50lhISKgv5ip1NIg,YJyqWukt8wremg0sSRy4,TRY
-4,migros,Migros,Migros Atasehir,"Atasehir Ataturk Mah Ataturk Atasehir Bulvari No: 18 D:, D:1, 34758 Atasehir/Istanbul",XhYn03kJlgx74hrlJe9Y,AqReOknc8bs8UmEGxIiv,TRY
+3,carrefour,CarrefourSA,CarrefourSA Bakirkoy,"Marmara Forum AVM, Osmaniye Mah. Cobancesme Kosuyolu Bulv. No: 3, 34146 Bakirkoy/Istanbul",GwukmSESE5rrvQpEXa39,YJyqWukt8wremg0sSRy4,TRY
+4,migros,Migros,Migros Atasehir,"Atasehir Ataturk Mah Ataturk Atasehir Bulvari No: 18 D:, D:1, 34758 Atasehir/Istanbul",LvGh50lhISKgv5ip1NIg,AqReOknc8bs8UmEGxIiv,TRY
 5,a101,A101,A101 Ayranci,"Ayranci, Ucarli Sk. No:23, 06540 Cankaya/Ankara",1gIxfoEp5H12oUI3EtHH,mWxiNBFYHsY6Pa60XUs0,TRY
 6,bim,BİM,BİM Caferaga,"Caferaga, Zuhal Sokak No:19/A, Moda Cd. No:2, 34710 Kadikoy",4CNRFI2lh2sdB2EU9ltL,HtjVhXqdJSVTfLkdE6kh,TRY
-7,migros,Migros,Migros Basaksehir,"ZIYA GOKALP MAH. SULEYMAN DEMIREL CAD. NO:7 MAGAZA NO:11, 1. Ikitelli Cad., 34490 Basaksehir/Istanbul",XhYn03kJlgx74hrlJe9Y,T9ZCCRHOZZnI1abrW1B2,TRY
+7,migros,Migros,Migros Basaksehir,"ZIYA GOKALP MAH. SULEYMAN DEMIREL CAD. NO:7 MAGAZA NO:11, 1. Ikitelli Cad., 34490 Basaksehir/Istanbul",LvGh50lhISKgv5ip1NIg,T9ZCCRHOZZnI1abrW1B2,TRY
