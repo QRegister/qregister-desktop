@@ -1,4 +1,3 @@
-import os
 import random
 import calendar
 import time
@@ -8,8 +7,8 @@ import uuid
 
 from PIL import Image, ImageTk
 
-from firebase_setup import send_data, firebase_init
-from helpers import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list
+from firebase.setup import send_data, firebase_init
+from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list
 
 # Firebase initialization
 db = firebase_init()
@@ -110,8 +109,7 @@ def generate_qr() -> None:
     qr_image.photo = photo
 
     # Store logo
-    root = os.getcwd()
-    path = root + '/logos/' + store_slag + '.png'
+    path = 'data/logos/' + store_slag + '.png'
     img = Image.open(path)
     img.thumbnail((150, 150), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(img)
@@ -119,7 +117,7 @@ def generate_qr() -> None:
     store_logo.image = photo
 
     # Logo
-    path = 'qregister_logo.png'
+    path = 'data/logos/qregister.png'
     img = Image.open(path)
     img.thumbnail((200, 200), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(img)

@@ -1,6 +1,3 @@
 /.idea
-/qr_generator/
 /serviceAccountKey.json
-/__pycache__
-/qr.py
-/qr2.py
+__pycache__

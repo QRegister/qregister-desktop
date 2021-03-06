@@ -7,7 +7,7 @@ def read_lines(file: str) -> list:
 
     :return:
     """
-    return open(f'{file}.txt', 'r').readlines()
+    return open(f'data/csv/{file}.txt', 'r').readlines()
 
 
 def convert_inventory_to_list() -> list:
