@@ -4,13 +4,12 @@ import time
 import pyqrcode
 import tkinter as tk
 import uuid
-
 from PIL import Image, ImageTk
-
 from firebase.setup import send_data, firebase_init, update_stores
 from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list, \
     currency_symbol
 
+# Detect first time
 first = True
 
 
