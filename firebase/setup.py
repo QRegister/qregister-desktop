@@ -22,6 +22,28 @@ def firebase_init():
     return db
 
 
+def update_stores(db, stores):
+    for store in stores:
+        send_store(db, store)
+
+
+def send_store(db, store):
+    store_ref = db.collection('stores').document(store['id'])
+
+    store_ref.set({
+        'name': store['name'],
+        'slug': store['slug'],
+    })
+
+    store_location_ref = store_ref.collection('store-locations').document(store['location-id'])
+
+    store_location_ref.set({
+        'name': store['location'],
+        'address': store['address'],
+        'currency': store['currency'],
+    })
+
+
 def get_data(db, store_id: str, store_location_id: str) -> (str, str, str):
     """
     Getting store data from Firestore
@@ -35,7 +57,7 @@ def get_data(db, store_id: str, store_location_id: str) -> (str, str, str):
     store_detail = store_ref.get().to_dict()
 
     store_name = store_detail['name']
-    store_slug = store_detail['verbose']
+    store_slug = store_detail['slug']
 
     store_location_ref = store_ref.collection('store-locations').document(store_location_id)
     store_location_detail = store_location_ref.get().to_dict()

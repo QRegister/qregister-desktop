@@ -7,7 +7,7 @@ import uuid
 
 from PIL import Image, ImageTk
 
-from firebase.setup import send_data, firebase_init
+from firebase.setup import send_data, firebase_init, update_stores
 from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list, \
     currency_symbol
 
@@ -20,6 +20,9 @@ window.attributes('-fullscreen', True)
 window.title("QRegister")
 window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
+
+stores = convert_stores_to_list()
+update_stores(db=db, stores=stores)
 
 
 def close() -> None:

@@ -95,7 +95,7 @@ def convert_stores_to_list() -> list:
         temp['location'] = line['location']
         temp['location-id'] = line['location-id']
         temp['name'] = line['name']
-        temp['slag'] = line['slag']
+        temp['slug'] = line['slug']
 
         products_list.append(temp)
 

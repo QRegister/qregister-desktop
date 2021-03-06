@@ -1,4 +1,4 @@
-item-code,slag,name,location,address,id,location-id,currency
+item-code,slug,name,location,address,id,location-id,currency
 1,sok,Sok,Sok ODTU,"Universiteler Mh., No:1 ODTU Ankara TR, 06800 Cankaya",GwukmSESE5rrvQpEXa39,YAUQCOP3vm6yDhtMON6k,USD
 2,metro,Metro,Metro Gaziemir,"Atibey, Akay Cd. No:282, 35410 Gaziemir/Izmir",IM6JPmGhT9hWdQNvfPOu,RB76AvYpV6w2m33mzinc,EUR
 3,carrefour,CarrefourSA,CarrefourSA Bakirkoy,"Marmara Forum AVM, Osmaniye Mah. Cobancesme Kosuyolu Bulv. No: 3, 34146 Bakirkoy/Istanbul",LvGh50lhISKgv5ip1NIg,YJyqWukt8wremg0sSRy4,TRY
