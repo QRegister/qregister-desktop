@@ -20,7 +20,7 @@
 
 **Run GUI from command line:**
 
-- ```python gui.py ```
+- ```python main.py ```
 
 ## Frequently Asked Questions (FAQ)
 
