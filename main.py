@@ -14,10 +14,14 @@ from helpers.core import generate_sample_receipt, generate_hash, convert_receipt
 first = True
 
 
-def execute_once(db, stores: list, execute: int):
-    if execute:
-        update_stores(db, stores)
-    return False
+def activate_generate_button() -> None:
+    """
+    Activate "Generate" button
+
+    :return: None
+    """
+
+    button_generate['state'] = 'normal'
 
 
 def close() -> None:
@@ -30,14 +34,18 @@ def close() -> None:
     window.destroy()
 
 
-def activate_generate_button() -> None:
+def execute_once(db, stores: list, once: bool) -> bool:
     """
-    Activate "Generate" button
+    Execute inside code once
 
-    :return: None
+    :param db: Firebase Client
+    :param stores: Stores list
+    :param once: Boolean to check first time run
+    :return:
     """
-
-    button_generate['state'] = 'normal'
+    if once:
+        update_stores(db, stores)
+    return False
 
 
 def generate_qr() -> None:
@@ -132,16 +140,15 @@ def generate_qr() -> None:
     window.after(2000, activate_generate_button)
 
 
-def send_firebase(
-        cashier_name: str,
-        product_list: list,
-        qr_secret: str,
-        receipt_id: str,
-        store_id: str,
-        store_location_id: str,
-        total_price: float,
-        total_tax: float,
-) -> None:
+def send_firebase(cashier_name: str,
+                  product_list: list,
+                  qr_secret: str,
+                  receipt_id: str,
+                  store_id: str,
+                  store_location_id: str,
+                  total_price: float,
+                  total_tax: float,
+                  ) -> None:
     """
     Sending data to firebase
 
@@ -180,7 +187,7 @@ window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
 # Store update
-first = execute_once(db=db, execute=first, stores=convert_stores_to_list())
+first = execute_once(db=db, once=first, stores=convert_stores_to_list())
 
 # Tkinter GUI
 
@@ -207,6 +214,7 @@ qr_image.grid(row=1, column=3, padx=0, pady=0)
 store_logo = tk.Label(window)
 store_logo.place(x=50, y=170)
 
+# QRegister logo
 qregister_logo = tk.Label(window)
 qregister_logo.place(x=575, y=150)
 

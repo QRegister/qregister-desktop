@@ -3,8 +3,6 @@ import shutil
 from random import randint, uniform
 from tempfile import NamedTemporaryFile
 
-from firebase.setup import send_store, firebase_init
-
 
 def round_n_decimals(number: float, decimal: int) -> float:
     """
@@ -182,9 +180,9 @@ def generate_sample_receipt() -> dict:
 
         if randint(0, 1) == 1:
             if product.get('unit-of-measurement') == 'KG':
-                count = round_n_decimals(uniform(1, storage // 2), 2)
+                count = round_n_decimals(uniform(1, storage // 3), 2)
             else:
-                count = randint(1, storage // 2)
+                count = randint(1, storage // 3)
 
             receipt[product.get('barcode')] = count
             update_csv(barcode=barcode, count=count)
@@ -228,5 +226,3 @@ def update_csv(barcode: int, count: float) -> None:
             writer.writerow(product)
 
     shutil.copy2(temp_file.name, 'data/csv/inventory.csv')
-
-

@@ -1,7 +1,5 @@
 import datetime
-
 import firebase_admin
-
 from firebase_admin import firestore
 from firebase_admin import credentials
 
@@ -24,6 +22,7 @@ def firebase_init():
 
 def update_stores(db, stores: list):
     """
+    Updating all stores
 
     :param db: Firestore Client
     :param stores: All stores
@@ -66,7 +65,7 @@ def get_data(db, store_id: str, store_location_id: str) -> dict:
     :param db: Firestore Client
     :param store_location_id: Store location id
     :param store_id: Store id
-    :return:
+    :return: Store dict
     """
     store = {}
 
@@ -86,17 +85,16 @@ def get_data(db, store_id: str, store_location_id: str) -> dict:
     return store
 
 
-def send_data(
-        db,
-        cashier_name: str,
-        product_list: list,
-        qr_secret: str,
-        receipt_id: str,
-        store_id: str,
-        store_location_id: str,
-        total_price: float,
-        total_tax: float,
-):
+def send_data(db,
+              cashier_name: str,
+              product_list: list,
+              qr_secret: str,
+              receipt_id: str,
+              store_id: str,
+              store_location_id: str,
+              total_price: float,
+              total_tax: float,
+              ):
     """
     Sending data to Firestore
 
