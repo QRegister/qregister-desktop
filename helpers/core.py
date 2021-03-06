@@ -171,6 +171,7 @@ def generate_sample_receipt() -> dict:
     :return: Receipt dict in form "{'barcode': 'count'}"
     """
 
+    constant = 3
     inventory = convert_inventory_to_list()
     receipt = {}
 
@@ -178,11 +179,11 @@ def generate_sample_receipt() -> dict:
         storage = product.get('storage')
         barcode = product.get('barcode')
 
-        if randint(0, 1) == 1:
+        if randint(0, 1) == 1 and storage != constant:
             if product.get('unit-of-measurement') == 'KG':
-                count = round_n_decimals(uniform(1, storage // 3), 2)
+                count = round_n_decimals(uniform(1, storage // constant), 2)
             else:
-                count = randint(1, storage // 3)
+                count = randint(1, storage // constant)
 
             receipt[product.get('barcode')] = count
             update_csv(barcode=barcode, count=count)
