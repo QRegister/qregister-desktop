@@ -8,6 +8,15 @@ def round_n_decimals(number: float, decimal: int):
     return round(float(number), decimal)
 
 
+def currency_symbol(currency: str):
+    if currency == 'TRY':
+        return '₺'
+    elif currency == 'USD':
+        return '$'
+    elif currency == 'EUR':
+        return '€'
+
+
 def read_csv(file: str):
     all_lines = []
 
@@ -49,7 +58,7 @@ def convert_inventory_to_list() -> list:
 
 def convert_stores_to_list() -> list:
     """
-    Convert inventory to list
+    Convert stores to list
 
     :return: List of dict of inventory items
     """
@@ -72,15 +81,6 @@ def convert_stores_to_list() -> list:
         products_list.append(temp)
 
     return products_list
-
-
-def read_lines(file: str) -> list:
-    """
-    Read lines from 'file'.txt'
-
-    :return:
-    """
-    return open(f'data/csv/{file}.txt', 'r').readlines()
 
 
 def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
@@ -154,7 +154,6 @@ def generate_sample_receipt() -> dict:
 
     inventory = convert_inventory_to_list()
     receipt = {}
-    count = 0
 
     for product in inventory:
         storage = product.get('storage')
@@ -175,7 +174,14 @@ def generate_sample_receipt() -> dict:
         return receipt
 
 
-def update_csv(barcode: int, count: float):
+def update_csv(barcode: int, count: float) -> None:
+    """
+    Updating 'inventory'.csv file
+
+    :param barcode: Barcode number
+    :param count: Count of requested
+    :return: None
+    """
     products_list = convert_inventory_to_list()
 
     temp_file = NamedTemporaryFile(mode='w', delete=False)
@@ -191,6 +197,7 @@ def update_csv(barcode: int, count: float):
         # Writing temporary file
         writer = csv.DictWriter(temp_file, fieldnames=fieldnames)
         writer.writeheader()
+
         # Decreasing the storage of the given barcode
         for product in products_list:
             if product['barcode'] == barcode:

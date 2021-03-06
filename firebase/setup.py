@@ -48,11 +48,11 @@ def get_data(db, store_id: str, store_location_id: str) -> (str, str, str):
 
 def send_data(
         db,
-        store_id: str,
         cashier_name: str,
         product_list: list,
         qr_secret: str,
         receipt_id: str,
+        store_id: str,
         store_location_id: str,
         total_price: float,
         total_tax: float,
@@ -76,10 +76,10 @@ def send_data(
                                                                               store_location_id=store_location_id)
 
     # Store Reference
-    store_ref = db.collection('stores').document(store_id).collection('store-locations').document(store_location_id)
+    # store_ref = db.collection('stores').document(store_id).collection('store-locations').document(store_location_id)
 
     # Receipt reference
-    receipt_ref = store_ref.collection('receipts').document(receipt_id)
+    # receipt_ref = store_ref.collection('receipts').document(receipt_id)
 
     data = {
         'cashier-name': cashier_name,
@@ -95,7 +95,7 @@ def send_data(
     }
     print(data)
 
-    receipt_ref.set(data)
+    # receipt_ref.set(data)
 
     receipt_ref = db.collection('receipts').document(receipt_id)
     receipt_ref.set(data)

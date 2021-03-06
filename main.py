@@ -8,7 +8,8 @@ import uuid
 from PIL import Image, ImageTk
 
 from firebase.setup import send_data, firebase_init
-from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list
+from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list, \
+    currency_symbol
 
 # Firebase initialization
 db = firebase_init()
@@ -60,6 +61,10 @@ def generate_qr() -> None:
     store_slag = store['slag']
     store_item_code = store['item-code']
     store_location_id = store['location-id']
+    store_currency = store['currency']
+
+    # Getting correct currency symbol
+    currency = currency_symbol(store_currency)
 
     # Random receipt id
     receipt_id = str(uuid.uuid4())[:18]
@@ -99,7 +104,7 @@ def generate_qr() -> None:
 
     # Update price text
     price_text.config(state=tk.NORMAL)
-    price_text.replace('1.0', tk.END, f"Total: {total_price}₺", "tag-center")
+    price_text.replace('1.0', tk.END, f"Total: {currency}{total_price} ", "tag-center")
     price_text.config(state=tk.DISABLED)
 
     # QR generation

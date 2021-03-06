@@ -1,4 +1,5 @@
 /.idea
-/serviceAccountKey.json
+serviceAccountKey.json
+serviceAccountKey_old.json
 __pycache__
 inventory mark1.csv
