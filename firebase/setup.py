@@ -13,7 +13,7 @@ def firebase_init():
     try:
         firebase_admin.get_app()
     except ValueError as e:
-        cred = credentials.Certificate("serviceAccountKey.json")
+        cred = credentials.Certificate("firebase/serviceAccountKey.json")
         firebase_admin.initialize_app(cred)
 
     db = firestore.client()
