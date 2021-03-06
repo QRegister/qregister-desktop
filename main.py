@@ -80,7 +80,7 @@ def generate_qr() -> None:
     qr_secret += '-' + generate_hash(receipt=receipt)
 
     # TODO UNCOMMENT FOR HASH QR
-    qr_secret = receipt_id
+    qr_secret += '-' + receipt_id
 
     # Convert receipt data to list and calculate total price & total tax
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)

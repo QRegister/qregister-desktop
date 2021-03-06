@@ -6,28 +6,67 @@ def round_n_decimals(number: float, decimal: int):
     return round(float(number), decimal)
 
 
-def read_csv(file: str) -> list:
+def read_csv(file: str):
     product_list = []
 
     with open(f'data/csv/{file}.csv', 'r') as csv_file:
-        csv_reader = csv.DictReader(csv_file)
-        for line in csv_reader:
-            temp = {}
+        return csv.DictReader(csv_file)
 
-            storage = round_n_decimals(float(line['storage']), 2)
-            unit_price = round_n_decimals(float(line['unit_price']), 2)
 
-            temp['barcode'] = int(line['barcode'])
-            temp['item_code'] = int(line['item_code'])
-            temp['name'] = line['name']
-            temp['storage'] = storage
-            temp['tax_rate'] = int(line['tax_rate'])
-            temp['unit_of_measurement'] = line['unit_of_measurement'].upper()
-            temp['unit_price'] = unit_price
+def convert_inventory_to_list() -> list:
+    """
+    Convert inventory to list
 
-            product_list.append(temp)
+    :return: List of dict of inventory items
+    """
 
-    return product_list
+    csv_reader = read_csv('inventory')
+    products_list = []
+
+    for line in csv_reader:
+        temp = {}
+
+        storage = round_n_decimals(float(line['storage']), 2)
+        unit_price = round_n_decimals(float(line['unit_price']), 2)
+
+        temp['barcode'] = int(line['barcode'])
+        temp['item-code'] = int(line['item_code'])
+        temp['name'] = line['name']
+        temp['storage'] = storage
+        temp['unit-of-measurement'] = line['unit_of_measurement'].upper()
+        temp['unit-price'] = unit_price
+        temp['tax-rate'] = int(line['tax_rate'])
+
+        products_list.append(temp)
+
+    return products_list
+
+
+def convert_inventory_to_stores() -> list:
+    """
+    Convert inventory to list
+
+    :return: List of dict of inventory items
+    """
+
+    csv_reader = read_csv('stores')
+    products_list = []
+
+    for line in csv_reader:
+        temp = {}
+
+        temp['address'] = line['address']
+        temp['curreny'] = line['currency']
+        temp['id'] = line['id']
+        temp['item-code'] = int(line['item_code'])
+        temp['location'] = line['location']
+        temp['location-id'] = line['location_id']
+        temp['name'] = line['name']
+        temp['slag'] = line['slag']
+
+        products_list.append(temp)
+
+    return products_list
 
 
 def read_lines(file: str) -> list:
@@ -39,59 +78,59 @@ def read_lines(file: str) -> list:
     return open(f'data/csv/{file}.txt', 'r').readlines()
 
 
-def convert_inventory_to_list() -> list:
-    """
-    Convert inventory to list
+# def convert_inventory_to_list() -> list:
+#     """
+#     Convert inventory to list
+#
+#     :return: List of dict of inventory items
+#     """
+#
+#     products = []
+#     inventory = read_lines('inventory')
+#     for line in inventory:
+#         product = {}
+#         item_code, barcode, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
+#
+#         tax_rate = int(tax_rate)
+#         unit_price = round(float(unit_price), 2)
+#
+#         product['name'] = name
+#         product['barcode'] = barcode
+#         product['item-code'] = item_code
+#         product['tax-rate'] = tax_rate
+#         product['unit-price'] = unit_price
+#         product['unit-of-measurement'] = unit_of_measurement.upper()
+#
+#         products.append(product)
+#
+#     return products
 
-    :return: List of dict of inventory items
-    """
 
-    products = []
-    inventory = read_lines('inventory')
-    for line in inventory:
-        product = {}
-        item_code, barcode, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
-
-        tax_rate = int(tax_rate)
-        unit_price = round(float(unit_price), 2)
-
-        product['name'] = name
-        product['barcode'] = barcode
-        product['item-code'] = item_code
-        product['tax-rate'] = tax_rate
-        product['unit-price'] = unit_price
-        product['unit-of-measurement'] = unit_of_measurement.upper()
-
-        products.append(product)
-
-    return products
-
-
-def convert_stores_to_list() -> list:
-    """
-    Convert stores to list
-
-    :return: List of dict of store items
-    """
-
-    store_list = []
-    stores = read_lines('stores')
-
-    for line in stores:
-        store = {}
-        item_code, slag, name, location, address, id, location_id = line.strip().split('?')
-
-        store['address'] = address
-        store['id'] = id
-        store['item-code'] = item_code
-        store['location'] = location
-        store['location-id'] = location_id
-        store['name'] = name
-        store['slag'] = slag
-
-        store_list.append(store)
-
-    return store_list
+# def convert_stores_to_list() -> list:
+#     """
+#     Convert stores to list
+#
+#     :return: List of dict of store items
+#     """
+#
+#     store_list = []
+#     stores = read_lines('stores')
+#
+#     for line in stores:
+#         store = {}
+#         item_code, slag, name, location, address, id, location_id = line.strip().split('?')
+#
+#         store['address'] = address
+#         store['id'] = id
+#         store['item-code'] = item_code
+#         store['location'] = location
+#         store['location-id'] = location_id
+#         store['name'] = name
+#         store['slag'] = slag
+#
+#         store_list.append(store)
+#
+#     return store_list
 
 
 def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
@@ -116,7 +155,7 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
         if barcode in receipt.keys():
             item = product
 
-            count = round(float(receipt.get(barcode)), 2)
+            count = round_n_decimals(receipt.get(barcode), 2)
             unit_price = item.get('unit-price')
             tax_rate = item.get('tax-rate')
 
@@ -178,5 +217,3 @@ def generate_sample_receipt() -> dict:
         generate_sample_receipt()
     else:
         return receipt
-
-# print(read_csv('inventory'))
