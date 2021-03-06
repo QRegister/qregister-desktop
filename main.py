@@ -1,3 +1,4 @@
+import os
 import random
 import calendar
 import time
@@ -43,7 +44,11 @@ def execute_once(db, stores: list, once: bool) -> bool:
     :return:
     """
     if once:
+        # Updating all store data
         update_stores(db, stores)
+
+        # Checking out inventory from repo for testing
+        os.system("git checkout origin/main data/csv/inventory.csv")
     return False
 
 
