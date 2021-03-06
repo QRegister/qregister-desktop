@@ -4,11 +4,24 @@ from random import randint, uniform
 from tempfile import NamedTemporaryFile
 
 
-def round_n_decimals(number: float, decimal: int):
+def round_n_decimals(number: float, decimal: int) -> float:
+    """
+    Rounding float number to n decimal points
+
+    :param number: Float number
+    :param decimal: Decimal point coun
+    :return:
+    """
     return round(float(number), decimal)
 
 
-def currency_symbol(currency: str):
+def currency_symbol(currency: str) -> str:
+    """
+    Getting currency symbol from given currency
+
+    :param currency: Currency Text
+    :return: Currency symbol
+    """
     if currency == 'TRY':
         return '₺'
     elif currency == 'USD':
@@ -17,7 +30,13 @@ def currency_symbol(currency: str):
         return '€'
 
 
-def read_csv(file: str):
+def read_csv(file: str) -> list:
+    """
+    Reading the given CSV file
+
+    :param file: Filename string
+    :return: List of all lines of CSV file
+    """
     all_lines = []
 
     with open(f'data/csv/{file}.csv', 'r') as csv_file:
