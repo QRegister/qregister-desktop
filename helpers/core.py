@@ -1,5 +1,7 @@
 import csv
+import shutil
 from random import randint, uniform
+from tempfile import NamedTemporaryFile
 
 
 def round_n_decimals(number: float, decimal: int):
@@ -7,10 +9,13 @@ def round_n_decimals(number: float, decimal: int):
 
 
 def read_csv(file: str):
-    product_list = []
+    all_lines = []
 
     with open(f'data/csv/{file}.csv', 'r') as csv_file:
-        return csv.DictReader(csv_file)
+        lines = csv.DictReader(csv_file)
+        for line in lines:
+            all_lines.append(line)
+    return all_lines
 
 
 def convert_inventory_to_list() -> list:
@@ -27,22 +32,22 @@ def convert_inventory_to_list() -> list:
         temp = {}
 
         storage = round_n_decimals(float(line['storage']), 2)
-        unit_price = round_n_decimals(float(line['unit_price']), 2)
+        unit_price = round_n_decimals(float(line['unit-price']), 2)
 
         temp['barcode'] = int(line['barcode'])
-        temp['item-code'] = int(line['item_code'])
+        temp['item-code'] = int(line['item-code'])
         temp['name'] = line['name']
         temp['storage'] = storage
-        temp['unit-of-measurement'] = line['unit_of_measurement'].upper()
+        temp['unit-of-measurement'] = line['unit-of-measurement'].upper()
         temp['unit-price'] = unit_price
-        temp['tax-rate'] = int(line['tax_rate'])
+        temp['tax-rate'] = int(line['tax-rate'])
 
         products_list.append(temp)
 
     return products_list
 
 
-def convert_inventory_to_stores() -> list:
+def convert_stores_to_list() -> list:
     """
     Convert inventory to list
 
@@ -56,11 +61,11 @@ def convert_inventory_to_stores() -> list:
         temp = {}
 
         temp['address'] = line['address']
-        temp['curreny'] = line['currency']
+        temp['currency'] = line['currency']
         temp['id'] = line['id']
-        temp['item-code'] = int(line['item_code'])
+        temp['item-code'] = int(line['item-code'])
         temp['location'] = line['location']
-        temp['location-id'] = line['location_id']
+        temp['location-id'] = line['location-id']
         temp['name'] = line['name']
         temp['slag'] = line['slag']
 
@@ -76,61 +81,6 @@ def read_lines(file: str) -> list:
     :return:
     """
     return open(f'data/csv/{file}.txt', 'r').readlines()
-
-
-# def convert_inventory_to_list() -> list:
-#     """
-#     Convert inventory to list
-#
-#     :return: List of dict of inventory items
-#     """
-#
-#     products = []
-#     inventory = read_lines('inventory')
-#     for line in inventory:
-#         product = {}
-#         item_code, barcode, name, unit_price, unit_of_measurement, tax_rate = line.strip().split('?')
-#
-#         tax_rate = int(tax_rate)
-#         unit_price = round(float(unit_price), 2)
-#
-#         product['name'] = name
-#         product['barcode'] = barcode
-#         product['item-code'] = item_code
-#         product['tax-rate'] = tax_rate
-#         product['unit-price'] = unit_price
-#         product['unit-of-measurement'] = unit_of_measurement.upper()
-#
-#         products.append(product)
-#
-#     return products
-
-
-# def convert_stores_to_list() -> list:
-#     """
-#     Convert stores to list
-#
-#     :return: List of dict of store items
-#     """
-#
-#     store_list = []
-#     stores = read_lines('stores')
-#
-#     for line in stores:
-#         store = {}
-#         item_code, slag, name, location, address, id, location_id = line.strip().split('?')
-#
-#         store['address'] = address
-#         store['id'] = id
-#         store['item-code'] = item_code
-#         store['location'] = location
-#         store['location-id'] = location_id
-#         store['name'] = name
-#         store['slag'] = slag
-#
-#         store_list.append(store)
-#
-#     return store_list
 
 
 def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
@@ -204,16 +154,49 @@ def generate_sample_receipt() -> dict:
 
     inventory = convert_inventory_to_list()
     receipt = {}
+    count = 0
 
     for product in inventory:
+        storage = product.get('storage')
+        barcode = product.get('barcode')
+
         if randint(0, 1) == 1:
             if product.get('unit-of-measurement') == 'KG':
-                count = uniform(1, 5)
+                count = round_n_decimals(uniform(1, storage // 2), 2)
             else:
-                count = randint(1, 5)
+                count = randint(1, storage // 2)
+
             receipt[product.get('barcode')] = count
+            update_csv(barcode=barcode, count=count)
 
     if not bool(receipt):
         generate_sample_receipt()
     else:
         return receipt
+
+
+def update_csv(barcode: int, count: float):
+    products_list = convert_inventory_to_list()
+
+    temp_file = NamedTemporaryFile(mode='w', delete=False)
+
+    # Read inventory
+    with open('data/csv/inventory.csv', 'r', newline='') as csv_read, temp_file:
+
+        # Reading fieldnames
+        csv_reader = csv.DictReader(csv_read)
+        dict_from_csv = dict(list(csv_reader)[0])
+        fieldnames = list(dict_from_csv.keys())
+
+        # Writing temporary file
+        writer = csv.DictWriter(temp_file, fieldnames=fieldnames)
+        writer.writeheader()
+        # Decreasing the storage of the given barcode
+        for product in products_list:
+            if product['barcode'] == barcode:
+                if count < product['storage']:
+                    product['storage'] -= round_n_decimals(float(count), 2)
+
+            writer.writerow(product)
+
+    shutil.copy2(temp_file.name, 'data/csv/inventory.csv')

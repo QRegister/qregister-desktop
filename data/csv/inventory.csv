@@ -1,7 +1,7 @@
-storage,item_code,barcode,name,unit_price,unit_of_measurement,tax_rate
-23,1,1001,Havuc,1.5,kg,8
-43,2,1002,Dardanel Ton 2x150g,30.0,number,8
-5,3,1003,Portakal Finike,9.99,number,8
-7,4,1004,Roka,4.95,kg,8
-39,5,1005,Dr Oetker Hamur Kabartma,4.65,number,18
-57,6,1006,Gawin Grapefruit,7.65,kg,8
+storage,item-code,barcode,name,unit-price,unit-of-measurement,tax-rate
+59.33,1,1001,Havuc,1.5,KG,8
+140.0,2,1002,Dardanel Ton 2x150g,30.0,NUMBER,8
+17.0,3,1003,Portakal Finike,9.99,NUMBER,8
+14.35,4,1004,Roka,4.95,KG,8
+140.0,5,1005,Dr Oetker Hamur Kabartma,4.65,NUMBER,18
+270.59,6,1006,Gawin Grapefruit,7.65,KG,8
