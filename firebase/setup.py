@@ -22,12 +22,27 @@ def firebase_init():
     return db
 
 
-def update_stores(db, stores):
+def update_stores(db, stores: list):
+    """
+
+    :param db: Firestore Client
+    :param stores: All stores
+    :return:
+    """
     for store in stores:
         send_store(db, store)
+    print("Stores updated")
 
 
-def send_store(db, store):
+def send_store(db, store: dict):
+    """
+    Sending store data to Firestore
+
+    :param db: Firestore Client
+    :param store: Store dict
+    :return:
+    """
+    print(store['id'])
     store_ref = db.collection('stores').document(store['id'])
 
     store_ref.set({
@@ -44,28 +59,31 @@ def send_store(db, store):
     })
 
 
-def get_data(db, store_id: str, store_location_id: str) -> (str, str, str):
+def get_data(db, store_id: str, store_location_id: str) -> dict:
     """
     Getting store data from Firestore
 
-    :param db:
+    :param db: Firestore Client
     :param store_location_id: Store location id
     :param store_id: Store id
     :return:
     """
+    store = {}
+
     store_ref = db.collection('stores').document(store_id)
     store_detail = store_ref.get().to_dict()
 
-    store_name = store_detail['name']
-    store_slug = store_detail['slug']
+    store['name'] = store_detail['name']
+    store['slug'] = store_detail['slug']
 
     store_location_ref = store_ref.collection('store-locations').document(store_location_id)
     store_location_detail = store_location_ref.get().to_dict()
 
-    store_location = store_location_detail['name']
-    store_location_address = store_location_detail['address']
+    store['location'] = store_location_detail['name']
+    store['address'] = store_location_detail['address']
+    store['currency'] = store_location_detail['currency']
 
-    return store_name, store_slug, store_location, store_location_address
+    return store
 
 
 def send_data(
@@ -94,22 +112,23 @@ def send_data(
     :return:
     """
 
-    store_name, store_slug, store_location, store_location_address = get_data(db=db, store_id=store_id,
-                                                                              store_location_id=store_location_id)
+    # Getting store details from Firebase
+    store = get_data(db=db, store_id=store_id, store_location_id=store_location_id)
 
     # Store Reference
-    # store_ref = db.collection('stores').document(store_id).collection('store-locations').document(store_location_id)
+    store_ref = db.collection('stores').document(store_id).collection('store-locations').document(store_location_id)
 
     # Receipt reference
-    # receipt_ref = store_ref.collection('receipts').document(receipt_id)
+    receipt_ref = store_ref.collection('receipts').document(receipt_id)
 
     data = {
         'cashier-name': cashier_name,
+        'currency': store['currency'],
         'date': datetime.datetime.now(),
-        'store-location-address': store_location_address,
-        'store-location': store_location,
-        'store-name': store_name,
-        'store-slug': store_slug,
+        'store-location-address': store['address'],
+        'store-location': store['location'],
+        'store-name': store['name'],
+        'store-slug': store['slug'],
         'products': product_list,
         'qr-secret': qr_secret,
         'total-price': total_price,
@@ -117,7 +136,7 @@ def send_data(
     }
     print(data)
 
-    # receipt_ref.set(data)
+    receipt_ref.set(data)
 
     receipt_ref = db.collection('receipts').document(receipt_id)
     receipt_ref.set(data)

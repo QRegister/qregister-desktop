@@ -3,6 +3,8 @@ import shutil
 from random import randint, uniform
 from tempfile import NamedTemporaryFile
 
+from firebase.setup import send_store, firebase_init
+
 
 def round_n_decimals(number: float, decimal: int) -> float:
     """
@@ -226,3 +228,5 @@ def update_csv(barcode: int, count: float) -> None:
             writer.writerow(product)
 
     shutil.copy2(temp_file.name, 'data/csv/inventory.csv')
+
+

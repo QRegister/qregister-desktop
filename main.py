@@ -11,18 +11,13 @@ from firebase.setup import send_data, firebase_init, update_stores
 from helpers.core import generate_sample_receipt, generate_hash, convert_receipt_to_firebase, convert_stores_to_list, \
     currency_symbol
 
-# Firebase initialization
-db = firebase_init()
+first = True
 
-# Tkinter initialization
-window = tk.Tk()
-window.attributes('-fullscreen', True)
-window.title("QRegister")
-window.grid_rowconfigure(3, weight=1)
-window.grid_columnconfigure(3, weight=1)
 
-stores = convert_stores_to_list()
-update_stores(db=db, stores=stores)
+def execute_once(db, stores: list, execute: int):
+    if execute:
+        update_stores(db, stores)
+    return False
 
 
 def close() -> None:
@@ -61,7 +56,7 @@ def generate_qr() -> None:
     store = random.choice(all_stores)
 
     store_id = store['id']
-    store_slag = store['slag']
+    store_slug = store['slug']
     store_item_code = store['item-code']
     store_location_id = store['location-id']
     store_currency = store['currency']
@@ -117,7 +112,7 @@ def generate_qr() -> None:
     qr_image.photo = photo
 
     # Store logo
-    path = 'data/logos/' + store_slag + '.png'
+    path = 'data/logos/' + store_slug + '.png'
     img = Image.open(path)
     img.thumbnail((150, 150), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(img)
@@ -173,6 +168,19 @@ def send_firebase(
         total_tax=total_tax,
     )
 
+
+# Firebase initialization
+db = firebase_init()
+
+# Tkinter initialization
+window = tk.Tk()
+window.attributes('-fullscreen', True)
+window.title("QRegister")
+window.grid_rowconfigure(3, weight=1)
+window.grid_columnconfigure(3, weight=1)
+
+# Store update
+first = execute_once(db=db, execute=first, stores=convert_stores_to_list())
 
 # Tkinter GUI
 
