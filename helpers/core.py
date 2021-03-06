@@ -1,4 +1,33 @@
+import csv
 from random import randint, uniform
+
+
+def round_n_decimals(number: float, decimal: int):
+    return round(float(number), decimal)
+
+
+def read_csv(file: str) -> list:
+    product_list = []
+
+    with open(f'data/csv/{file}.csv', 'r') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for line in csv_reader:
+            temp = {}
+
+            storage = round_n_decimals(float(line['storage']), 2)
+            unit_price = round_n_decimals(float(line['unit_price']), 2)
+
+            temp['barcode'] = int(line['barcode'])
+            temp['item_code'] = int(line['item_code'])
+            temp['name'] = line['name']
+            temp['storage'] = storage
+            temp['tax_rate'] = int(line['tax_rate'])
+            temp['unit_of_measurement'] = line['unit_of_measurement'].upper()
+            temp['unit_price'] = unit_price
+
+            product_list.append(temp)
+
+    return product_list
 
 
 def read_lines(file: str) -> list:
@@ -99,7 +128,8 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
 
             products.append(item)
 
-    total_price, total_tax = round(float(total_price), 2), round(float(total_tax), 2)
+    total_price = round_n_decimals(number=total_price, decimal=2)
+    total_tax = round_n_decimals(number=total_tax, decimal=2)
 
     return products, total_price, total_tax
 
@@ -148,3 +178,5 @@ def generate_sample_receipt() -> dict:
         generate_sample_receipt()
     else:
         return receipt
+
+# print(read_csv('inventory'))
