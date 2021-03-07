@@ -83,19 +83,19 @@ def generate_qr() -> None:
     receipt = generate_sample_receipt()
 
     # Add timestamp
-    qr_secret = str(calendar.timegm(time.gmtime()))
+    qr_secret = str(int(time.time() * 1000))
 
     # Add store item code
-    qr_secret += '-' + str(store_item_code)
+    qr_secret += '#' + str(store_item_code)
 
     # Add cashier name
-    qr_secret += '-' + cashier_name
-
-    # Add products
-    qr_secret += '-' + generate_hash(receipt=receipt)
+    qr_secret += '#' + cashier_name
 
     # TODO UNCOMMENT FOR HASH QR
-    qr_secret += '-' + receipt_id
+    qr_secret += '#' + receipt_id
+
+    # Add products
+    qr_secret += '#' + generate_hash(receipt=receipt)
 
     # Convert receipt data to list and calculate total price & total tax
     product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
@@ -136,8 +136,8 @@ def generate_qr() -> None:
     img = Image.open(path)
     img.thumbnail((200, 200), Image.ANTIALIAS)
     photo = ImageTk.PhotoImage(img)
-    qregister_logo.config(image=photo)
-    qregister_logo.image = photo
+    #qregister_logo.config(image=photo)
+    #qregister_logo.image = photo
 
     # Deactivate generation button for 2 seconds
     button_generate['state'] = 'disabled'
@@ -191,7 +191,7 @@ window.grid_rowconfigure(3, weight=1)
 window.grid_columnconfigure(3, weight=1)
 
 # Store update
-first = execute_once(db=db, once=first, stores=convert_stores_to_list())
+# first = execute_once(db=db, once=first, stores=convert_stores_to_list())
 
 # Tkinter GUI
 
@@ -219,7 +219,6 @@ store_logo = tk.Label(window)
 store_logo.place(x=50, y=170)
 
 # QRegister logo
-qregister_logo = tk.Label(window)
-qregister_logo.place(x=575, y=150)
-
+#qregister_logo = tk.Label(window)
+#qregister_logo.place(x=575, y=150)
 window.mainloop()

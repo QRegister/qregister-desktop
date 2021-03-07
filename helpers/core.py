@@ -23,7 +23,7 @@ def currency_symbol(currency: str) -> str:
     :return: Currency symbol
     """
     if currency == 'TRY':
-        return '₺'
+        return 'TRY'
     elif currency == 'USD':
         return '$'
     elif currency == 'EUR':
@@ -155,7 +155,6 @@ def generate_hash(receipt: dict) -> str:
 
     for product in inventory:
         barcode = product.get('barcode')
-
         if barcode in receipt.keys():
             item_code = str(product.get('item-code'))
             item_count = str(receipt.get(barcode))

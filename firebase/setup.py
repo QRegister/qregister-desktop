@@ -4,6 +4,42 @@ from firebase_admin import firestore
 from firebase_admin import credentials
 
 
+def send_firebase(cashier_name: str,
+                  product_list: list,
+                  qr_secret: str,
+                  receipt_id: str,
+                  store_id: str,
+                  store_location_id: str,
+                  total_price: float,
+                  total_tax: float,
+                  ) -> None:
+    """
+    Sending data to firebase
+
+    :param cashier_name: Cashier name
+    :param product_list:
+    :param qr_secret: QR secret
+    :param receipt_id: Receipt id
+    :param store_id: Store id
+    :param store_location_id: Store location id
+    :param total_price: Total price of the receipt
+    :param total_tax: Total tax of the receipt
+    :return: None
+    """
+
+    send_data(
+        db=db,
+        cashier_name=cashier_name,
+        product_list=product_list,
+        qr_secret=qr_secret,
+        receipt_id=receipt_id,
+        store_id=store_id,
+        store_location_id=store_location_id,
+        total_price=total_price,
+        total_tax=total_tax,
+    )
+
+
 def firebase_init():
     """
     Firebase Initialization
