@@ -4,7 +4,8 @@ from firebase_admin import firestore
 from firebase_admin import credentials
 
 
-def send_firebase(cashier_name: str,
+def send_firebase(db,
+                  cashier_name: str,
                   product_list: list,
                   qr_secret: str,
                   receipt_id: str,

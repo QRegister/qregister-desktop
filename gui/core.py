@@ -62,8 +62,20 @@ class QRegisterLayout(Widget):
 
         # Convert receipt data to list and calculate total price & total tax
         product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
+        db = firebase_init()
 
         # Send all data to Firebase
+        send_firebase(
+            db=db,
+            cashier_name=cashier_name,
+            product_list=product_list,
+            qr_secret=qr_secret,
+            receipt_id=receipt_id,
+            store_id=store_id,
+            store_location_id=store_location_id,
+            total_price=total_price,
+            total_tax=total_tax,
+        )
 
         # Update price text
 
@@ -88,6 +100,5 @@ class QRegisterApp(App):
 
 
 def run():
-    db = firebase_init()
     root = QRegisterApp()
     root.run()
