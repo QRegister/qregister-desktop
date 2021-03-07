@@ -1,3 +1,3 @@
 from gui.core import run
 
-run()
+run(store_update=False)

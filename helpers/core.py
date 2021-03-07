@@ -120,21 +120,25 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
 
     for product in inventory:
         barcode = product.get('barcode')
+        try:
+            if barcode in receipt.keys():
+                item = product
 
-        if barcode in receipt.keys():
-            item = product
+                count = round_n_decimals(receipt.get(barcode), 2)
+                unit_price = item.get('unit-price')
+                tax_rate = item.get('tax-rate')
 
-            count = round_n_decimals(receipt.get(barcode), 2)
-            unit_price = item.get('unit-price')
-            tax_rate = item.get('tax-rate')
+                item['count'] = count
 
-            item['count'] = count
+                price_sum = count * unit_price
+                total_tax += price_sum * (tax_rate / 100.0)
+                total_price += price_sum
 
-            price_sum = count * unit_price
-            total_tax += price_sum * (tax_rate / 100.0)
-            total_price += price_sum
+                products.append(item)
 
-            products.append(item)
+        except AttributeError:
+            print(f"{product.get('name')} is not in stock")
+            continue
 
     total_price = round_n_decimals(number=total_price, decimal=2)
     total_tax = round_n_decimals(number=total_tax, decimal=2)

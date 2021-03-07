@@ -100,7 +100,8 @@ class QRegisterApp(App):
         return QRegisterLayout()
 
 
-def run():
-    execute_once(db=db, stores=convert_stores_to_list())
+def run(store_update: bool):
+    if store_update:
+        execute_once(db=db, stores=convert_stores_to_list())
     root = QRegisterApp()
     root.run()
