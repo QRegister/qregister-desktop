@@ -1,8 +1,21 @@
-item-code,slug,name,location,address,id,location-id,currency
+store-code,slug,name,location,address,id,location-id,currency
 1,sok,Sok,Sok ODTU,"Universiteler Mh., No:1 ODTU Ankara TR, 06800 Cankaya",XhYn03kJlgx74hrlJe9Y,YAUQCOP3vm6yDhtMON6k,USD
 2,metro,Metro,Metro Gaziemir,"Atibey, Akay Cd. No:282, 35410 Gaziemir/Izmir",IM6JPmGhT9hWdQNvfPOu,RB76AvYpV6w2m33mzinc,EUR
-3,carrefour,CarrefourSA,CarrefourSA Bakirkoy,"Marmara Forum AVM, Osmaniye Mah. Cobancesme Kosuyolu Bulv. No: 3, 34146 Bakirkoy/Istanbul",GwukmSESE5rrvQpEXa39,YJyqWukt8wremg0sSRy4,TRY
+3,carrefour,CarrefourSa,CarrefourSA Bakirkoy,"Marmara Forum AVM, Osmaniye Mah. Cobancesme Kosuyolu Bulv. No: 3, 34146 Bakirkoy/Istanbul",GwukmSESE5rrvQpEXa39,YJyqWukt8wremg0sSRy4,TRY
 4,migros,Migros,Migros Atasehir,"Atasehir Ataturk Mah Ataturk Atasehir Bulvari No: 18 D:, D:1, 34758 Atasehir/Istanbul",LvGh50lhISKgv5ip1NIg,AqReOknc8bs8UmEGxIiv,TRY
 5,a101,A101,A101 Ayranci,"Ayranci, Ucarli Sk. No:23, 06540 Cankaya/Ankara",1gIxfoEp5H12oUI3EtHH,mWxiNBFYHsY6Pa60XUs0,TRY
-6,bim,BİM,BİM Caferaga,"Caferaga, Zuhal Sokak No:19/A, Moda Cd. No:2, 34710 Kadikoy",4CNRFI2lh2sdB2EU9ltL,HtjVhXqdJSVTfLkdE6kh,TRY
+6,bim,BIM,BIM Caferaga,"Caferaga, Zuhal Sokak No:19/A, Moda Cd. No:2, 34710 Kadikoy",4CNRFI2lh2sdB2EU9ltL,HtjVhXqdJSVTfLkdE6kh,TRY
 7,migros,Migros,Migros Basaksehir,"ZIYA GOKALP MAH. SULEYMAN DEMIREL CAD. NO:7 MAGAZA NO:11, 1. Ikitelli Cad., 34490 Basaksehir/Istanbul",LvGh50lhISKgv5ip1NIg,T9ZCCRHOZZnI1abrW1B2,TRY
+8,migros,Migros,Migros-Supermarkt - Zurich - City,"Lowenstrasse 31-35, 8001 Zurich",LvGh50lhISKgv5ip1NIg,GtbFVRU5SLBu75p6TQ6M,EUR
+9,migros,Migros,Supermarch� Migros - Etrembi�res (F),"CC Shopping-Etrembieres, 74112 Etrembieres",LvGh50lhISKgv5ip1NIg,EeEHNd6LU8QwqrXH5dHn,EUR
+10,metro,Metro,METRO Verona,"METRO Verona Via Torricelli 17 37135 Verona",IM6JPmGhT9hWdQNvfPOu,CADf8rVJty22xNxeH844,EUR
+11,metro,Metro,METRO Luik,"Avenue Georges-Truffaut 43 4020 Luik (Bressoux)",IM6JPmGhT9hWdQNvfPOu,WQmLhmf2XS4uxrMuwZXe,EUR
+12,carrefour,CarrefourSa,Supermercato Carrefour Express ROMA,"Via Fidenza, 9, 00182, ROMA",GwukmSESE5rrvQpEXa39,MJNRtqnHdECD4DRW2R5m,EUR
+13,a101,A101,A101 Folkart Kuleleri Bayrakli Izmir,"Adalet Mah. 2131 /11 Sok. NO:11-A Bayrakli-Izmir",1gIxfoEp5H12oUI3EtHH,yBr9FjJqMj7kdg6g5Jzu,TRY
+14,a101,A101,A101 - Inonu Mahallesi Bornova Izmir,"Inonu Mah.789 Sok. No: 8 Bornova- Izmir",1gIxfoEp5H12oUI3EtHH,qapKLpt2sYmYm7VUDDgu,TRY
+15,bim,BIM,BIM ALACA BOLU,"Sumer Mh. Cumhuriyet Cd. Aygunduz Ap. No:148 17 Alaca/Bolu",4CNRFI2lh2sdB2EU9ltL,nqtMDEz9qhbcKkK527tc,TRY
+16,bim,BIM,BIM SAMURLU ALIAGA,"Yeni Mahalle Samurlu Cad. No:31 Aliaga-Izmir",4CNRFI2lh2sdB2EU9ltL,7UjEb4GYZ546q5jNVfmM,TRY
+17,bim,BIM,BIM ALIAGA IZMIR,"Kazim Dirik Mah. Barbaros Cad. No:1 Aliaga-Izmir",4CNRFI2lh2sdB2EU9ltL,rHrJRq69x69uWJnaKeX2,TRY
+18,sok,Sok,Sok Bartin Amasra Magazasi,"Kum mah. Tahir Hoca cad. No:4/A-B Amasra/Bartin",XhYn03kJlgx74hrlJe9Y,9JjNEs9TRNA7EHVNWKcD,TRY
+19,sok,Sok,Sok Hakkari Daggol ,"DAGGoL MAHALLESI HAKKARI VAN B ULVARI CADDESI NO:42/Z",XhYn03kJlgx74hrlJe9Y,Jh4UgRnfd4TgCxHuQ29K,TRY
+20,sok,Sok,Sok Gaziantep Fevzi cakmak Bulvari ,"Fatih Mah. Marasal Fevzi cakma k Bulvari No: 111/A sehitkamil",XhYn03kJlgx74hrlJe9Y,E36efmePQ5vs6YLK2sqt,TRY

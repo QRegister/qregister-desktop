@@ -91,7 +91,7 @@ def convert_stores_to_list() -> list:
         temp['address'] = line['address']
         temp['currency'] = line['currency']
         temp['id'] = line['id']
-        temp['item-code'] = int(line['item-code'])
+        temp['store-code'] = int(line['store-code'])
         temp['location'] = line['location']
         temp['location-id'] = line['location-id']
         temp['name'] = line['name']
@@ -155,10 +155,15 @@ def generate_hash(receipt: dict) -> str:
 
     for product in inventory:
         barcode = product.get('barcode')
-        if barcode in receipt.keys():
-            item_code = str(product.get('item-code'))
-            item_count = str(receipt.get(barcode))
-            qr_hash += item_code + '?' + item_count + '%'
+
+        try:
+            if barcode in receipt.keys():
+                item_code = str(product.get('item-code'))
+                item_count = str(receipt.get(barcode))
+                qr_hash += item_code + '?' + item_count + '%'
+        except AttributeError:
+            print(f"{product.get('name')} is not in stock")
+            continue
 
     return qr_hash
 

@@ -1,4 +1,6 @@
 import datetime
+import os
+
 import firebase_admin
 from firebase_admin import firestore
 from firebase_admin import credentials
@@ -39,6 +41,22 @@ def send_firebase(db,
         total_price=total_price,
         total_tax=total_tax,
     )
+
+
+def execute_once(db, stores: list):
+    """
+    Execute inside code once
+
+    :param db: Firebase Client
+    :param stores: Stores list
+    :param once: Boolean to check first time run
+    :return:
+    """
+    # Updating all store data
+    update_stores(db, stores)
+
+    # Checking out inventory from repo for testing
+    os.system("git checkout origin/main data/csv/inventory.csv")
 
 
 def firebase_init():

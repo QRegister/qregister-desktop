@@ -4,7 +4,7 @@ import uuid
 import pyqrcode
 from kivy.app import App
 from kivy.uix.widget import Widget
-from firebase.setup import firebase_init, send_data, send_firebase
+from firebase.setup import firebase_init, send_data, send_firebase, execute_once
 from helpers.core import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
     convert_receipt_to_firebase
 
@@ -22,7 +22,7 @@ class QRegisterLayout(Widget):
         :return: None
         """
 
-        cashier_name = 'Deniz'
+        cashier_name = random.choice(['Deniz', 'Murat', 'Alkim', 'Humeyra'])
 
         # Retrieve all stores
         all_stores = convert_stores_to_list()
@@ -32,7 +32,7 @@ class QRegisterLayout(Widget):
 
         store_id = store['id']
         store_slug = store['slug']
-        store_item_code = store['item-code']
+        store_code = store['store-code']
         store_location_id = store['location-id']
         store_currency = store['currency']
 
@@ -49,7 +49,7 @@ class QRegisterLayout(Widget):
         qr_secret = str(int(time.time() * 1000))
 
         # Add store item code
-        qr_secret += '#' + str(store_item_code)
+        qr_secret += '#' + str(store_code)
 
         # Add cashier name
         qr_secret += '#' + cashier_name
@@ -62,6 +62,8 @@ class QRegisterLayout(Widget):
 
         # Convert receipt data to list and calculate total price & total tax
         product_list, total_price, total_tax = convert_receipt_to_firebase(receipt=receipt)
+
+        # Firebase init
         db = firebase_init()
 
         # Send all data to Firebase
@@ -78,7 +80,6 @@ class QRegisterLayout(Widget):
         )
 
         # Update price text
-
         self.ids.txt_price.text = f"Total: {currency}{total_price}"
         print(qr_secret)
 
@@ -100,5 +101,6 @@ class QRegisterApp(App):
 
 
 def run():
+    execute_once(db=db, stores=convert_stores_to_list())
     root = QRegisterApp()
     root.run()
