@@ -3,6 +3,7 @@ import time
 import uuid
 import pyqrcode
 from kivy.app import App
+from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from firebase.setup import firebase_init, send_data, send_firebase, execute_once
 from helpers.core import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
@@ -21,7 +22,6 @@ class QRegisterLayout(Widget):
 
         :return: None
         """
-
         cashier_name = random.choice(['Deniz', 'Murat', 'Alkim', 'Humeyra'])
 
         # Retrieve all stores
@@ -80,7 +80,7 @@ class QRegisterLayout(Widget):
         )
 
         # Update price text
-        self.ids.txt_price.text = f"Total: {currency}{total_price}"
+        self.ids.txt_price.text = f"Total: {currency} {total_price}"
         print(qr_secret)
 
         # QR generation
@@ -100,7 +100,11 @@ class QRegisterApp(App):
         return QRegisterLayout()
 
 
-def run(store_update: bool):
+def run(store_update: bool, is_raspberry_pi=False, is_full_screen=False):
+    Window.fullscreen = is_full_screen
+
+    if is_raspberry_pi:
+        Window.size = (800, 480)
     if store_update:
         execute_once(db=db, stores=convert_stores_to_list())
     root = QRegisterApp()
