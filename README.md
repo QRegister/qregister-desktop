@@ -20,7 +20,15 @@
 
 **Run GUI from command line:**
 
-- ```python start.py ```
+- ```python main.py ```
+
+**Optional arguments: **
+
+| Parameter                 | Default       | Description   |	
+| :------------------------ |:-------------:| :-------------|
+| -f --full_screen          |False          |run app on full screen
+| -r --raspberry            |False          |set ui for raspberry pi
+| -u --update               |False          |update store data before running
 
 ## Frequently Asked Questions (FAQ)
 

@@ -156,7 +156,7 @@ class QRegisterApp(App):
         return QRegisterLayout()
 
 
-class QRegisterTouchApp(App):
+class QRegisterRaspberryApp(App):
     def build(self):
         return QRegisterLayout()
 
@@ -167,7 +167,7 @@ def run(store_update: bool, is_raspberry_pi: bool, is_full_screen: bool):
     if store_update:
         execute_once(db=db, stores=convert_stores_to_list())
     if is_raspberry_pi:
-        root = QRegisterTouchApp()
+        root = QRegisterRaspberryApp()
     else:
         root = QRegisterApp()
     root.run()
