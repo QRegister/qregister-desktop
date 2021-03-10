@@ -196,7 +196,7 @@ def generate_sample_receipt() -> dict:
             receipt[product.get('barcode')] = count
             update_csv(barcode=barcode, count=count)
 
-    if not bool(receipt):
+    if len(receipt) == 0:
         generate_sample_receipt()
     else:
         return receipt

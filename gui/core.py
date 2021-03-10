@@ -7,7 +7,7 @@ from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from firebase.setup import firebase_init, send_data, send_firebase, execute_once
-from helpers.core import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
+from core.helpers import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
     convert_receipt_to_firebase
 
 db = firebase_init()
