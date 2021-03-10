@@ -1,0 +1,85 @@
+
+<QRegisterLayout>:
+    GridLayout:
+        canvas:
+            Color:
+                rgba: 1, 1, 1, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        cols:1
+        size: root.width, root.height
+
+        FloatLayout:
+            Image:
+                source:"data/logos/qregister_horizontal.png"
+                pos_hint: {"x":0, "y":0.2}
+                size_hint: 1,1
+
+        FloatLayout:
+
+            Image:
+                source:"data/ui/img_bg.png"
+                pos_hint: {"x":-0.65, "y":-0.4}
+                size_hint: 1.6,1.6
+            Image:
+                id:img_shop
+                source:"data/logos/no_receipt_found.png"
+                pos_hint: {"x":-0.3, "y":-0.13}
+                size_hint: 1.1,1.1
+
+            Image:
+                source:"data/ui/img_bg.png"
+                pos_hint: {"x":-0.15, "y":-0.4}
+                size_hint: 1.6,1.6
+            Image:
+                id:img_qr
+                source:"data/qr/qregister_email.png"
+                pos_hint: {"x":0.05, "y":-0.2}
+                size_hint: 1.4,1.4
+            Label:
+                id:txt_price
+                text:'Price'
+                font_size: '35dp'
+                font_name:'data/ui/OpenSans-Regular'
+                color:'#3d3d3d'
+                pos_hint: {"x":-0.25, "y":0.63}
+
+
+        FloatLayout:
+
+            Button:
+                canvas:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                pos_hint: {"x":0.2, "y":0.1}
+                size_hint: 0.3, 0.3
+                on_press: root.generate_qr()
+
+            Image:
+                source:"data/ui/btn_show.png"
+                pos_hint: {"x":0.1, "y":0.15}
+                size_hint: 0.3, 0.3
+
+            Button:
+                canvas:
+                    Color:
+                        rgba: 1, 1, 1, 1
+                    Rectangle:
+                        size: self.size
+                        pos: self.pos
+                pos_hint: {"x":0.6, "y":0.15}
+                size_hint: 0.3, 0.3
+                on_press: app.stop()
+
+            Image:
+                source:"data/ui/btn_exit.png"
+                pos_hint: {"x":0.6, "y":0.15}
+                size_hint: 0.3, 0.3
+
+
+
