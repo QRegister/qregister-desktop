@@ -1,4 +1,5 @@
 import random
+import os
 import time
 import uuid
 import pyqrcode
@@ -8,22 +9,24 @@ from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from firebase.setup import firebase_init, send_data, send_firebase, update
 from core.helpers import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
-    convert_receipt_to_firebase
+    convert_receipt_to_firebase, fill_inventory
 
 db = firebase_init()
 
 
 class QRegisterLayout(Widget):
 
-    def enable_button(self, dt) -> None:
+    def change_source(self, dt) -> None:
         """
-        Activate show button
+        Change source of show button to normal
 
         :param dt: not used
         :return: None
         """
+        self.ids.img_show.source = 'data/ui/btn_show.png'
 
-        self.ids.btn_show.disabled = False
+        # Run generate_qr()
+        Clock.schedule_once(self.generate_qr, 0.3)
 
     def disable_button(self, name) -> None:
         """
@@ -44,26 +47,25 @@ class QRegisterLayout(Widget):
 
             Clock.schedule_once(self.exit_from_app, 0.3)
 
-    def change_source(self, dt) -> None:
+    def enable_button(self, dt) -> None:
         """
-        Change source of show button to normal
+        Activate show button
 
         :param dt: not used
         :return: None
         """
-        self.ids.img_show.source = 'data/ui/btn_show.png'
 
-        # Run generate_qr()
-        Clock.schedule_once(self.generate_qr, 0.3)
+        self.ids.btn_show.disabled = False
 
     @staticmethod
-    def exit_from_app() -> None:
+    def exit_from_app(dt) -> None:
         """
         Exit from app
 
         :param dt: not used
         :return:
         """
+        os.remove('data/qr/qr_test.png')
         App.get_running_app().stop()
 
     def generate_qr(self, dt) -> None:
@@ -162,11 +164,22 @@ class QRegisterRaspberryApp(App):
         return QRegisterLayout()
 
 
-def run(store_update: bool, is_raspberry_pi: bool, is_full_screen: bool):
+def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, inventory: bool) -> None:
+    """
+    Running QRegister App
+
+    :param update_store: Update Store data on Firebase
+    :param is_raspberry_pi: Is app runing on Raspberry Pi?
+    :param is_full_screen: Is it full screen?
+    :param inventory: Fill inventory
+    :return: None
+    """
     Window.fullscreen = is_full_screen
 
-    if store_update:
+    if update_store:
         update(db=db, stores=convert_stores_to_list())
+    if inventory:
+        fill_inventory()
     if is_raspberry_pi:
         root = QRegisterRaspberryApp()
     else:
