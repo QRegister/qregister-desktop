@@ -52,6 +52,8 @@ class QRegisterLayout(Widget):
         :return: None
         """
         self.ids.img_show.source = 'data/ui/btn_show.png'
+
+        # Run generate_qr()
         Clock.schedule_once(self.generate_qr, 0.3)
 
     @staticmethod
