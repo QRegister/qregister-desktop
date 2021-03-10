@@ -161,7 +161,7 @@ class QRegisterTouchApp(App):
         return QRegisterLayout()
 
 
-def run(store_update: bool, is_raspberry_pi=False, is_full_screen=False):
+def run(store_update: bool, is_raspberry_pi: bool, is_full_screen: bool):
     Window.fullscreen = is_full_screen
 
     if store_update:
