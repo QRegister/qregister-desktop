@@ -1,6 +1,9 @@
 import argparse
+import os
 
 from gui.core import run
+
+os.environ["KIVY_NO_ARGS"] = "1"
 
 parser = argparse.ArgumentParser(description='Welcome to QRegister')
 
