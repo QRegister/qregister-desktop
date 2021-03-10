@@ -7,37 +7,44 @@
             Rectangle:
                 size: self.size
                 pos: self.pos
-
         cols:1
         size: root.width, root.height
 
         FloatLayout:
+            # QRegister Logo
             Image:
                 source:"data/logos/qregister_horizontal.png"
                 pos_hint: {"x":0.04, "y":0.1}
                 size_hint: 0.9,0.9
 
         FloatLayout:
-
+            # Background image
             Image:
                 source:"data/ui/img_bg.png"
                 pos_hint: {"x":-0.5, "y":-0.1}
                 size_hint: 1.5,1.5
+
+            # Shop logo
             Image:
                 id:img_shop
                 source:"data/logos/no_receipt_found.png"
                 pos_hint: {"x":-0.15, "y":0.1}
                 size_hint: 0.8,0.8
 
+            # Background image
             Image:
                 source:"data/ui/img_bg.png"
                 pos_hint: {"x":0, "y":-0.1}
                 size_hint: 1.5,1.5
+
+            # QR image
             Image:
                 id:img_qr
                 source:"data/qr/qregister_email.png"
                 pos_hint: {"x":0.2, "y":0.1}
                 size_hint: 1.1,1.1
+
+            # Price text
             Label:
                 id:txt_price
                 text:'Price'
@@ -46,9 +53,8 @@
                 color:'#3d3d3d'
                 pos_hint: {"x":-0.25, "y":0.63}
 
-
         FloatLayout:
-
+            # Show Button
             Button:
                 canvas:
                     Color:
@@ -60,11 +66,15 @@
                 size_hint: 0.3, 0.3
                 on_press: root.generate_qr()
 
+            # Show Image
             Image:
+                id:img_show
                 source:"data/ui/btn_show.png"
                 pos_hint: {"x":0.1, "y":0.55}
                 size_hint: 0.3, 0.3
 
+
+            # Exit Button
             Button:
                 canvas:
                     Color:
@@ -76,8 +86,9 @@
                 size_hint: 0.3, 0.3
                 on_press: app.stop()
 
-
+            # Exit Image
             Image:
+                id:img_exit
                 source:"data/ui/btn_exit.png"
                 pos_hint: {"x":0.6, "y":0.55}
                 size_hint: 0.3, 0.3

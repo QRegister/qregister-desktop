@@ -3,6 +3,7 @@ import time
 import uuid
 import pyqrcode
 from kivy.app import App
+from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
 from firebase.setup import firebase_init, send_data, send_firebase, execute_once
@@ -13,8 +14,6 @@ db = firebase_init()
 
 
 class QRegisterLayout(Widget):
-    def say_hello(self):
-        self.ids.img_shop.source = "data/logos/a101.png"
 
     def generate_qr(self) -> None:
         """
@@ -22,6 +21,9 @@ class QRegisterLayout(Widget):
 
         :return: None
         """
+
+        self.ids.img_show.source = 'data/ui/btn_show_clicked.png'
+        # Random cashier
         cashier_name = random.choice(['Deniz', 'Murat', 'Alkim', 'Humeyra'])
 
         # Retrieve all stores
@@ -92,6 +94,11 @@ class QRegisterLayout(Widget):
         # Update Shop image
         self.ids.img_shop.source = 'data/logos/' + store_slug + '.png'
 
+        Clock.schedule_once(self.activate_button, 3)
+
+    def activate_button(self, dt) -> None:
+        self.ids.img_show.source = 'data/ui/btn_show.png'
+
     pass
 
 
@@ -100,7 +107,7 @@ class QRegisterApp(App):
         return QRegisterLayout()
 
 
-class QRegister_RaspberryApp(App):
+class QRegisterTouchApp(App):
     def build(self):
         return QRegisterLayout()
 
@@ -111,7 +118,7 @@ def run(store_update: bool, is_raspberry_pi=False, is_full_screen=False):
     if store_update:
         execute_once(db=db, stores=convert_stores_to_list())
     if is_raspberry_pi:
-        root = QRegister_RaspberryApp()
+        root = QRegisterTouchApp()
     else:
         root = QRegisterApp()
     root.run()

@@ -61,6 +61,7 @@
                 on_press: root.generate_qr()
 
             Image:
+                id:img_show
                 source:"data/ui/btn_show.png"
                 pos_hint: {"x":0.1, "y":0.15}
                 size_hint: 0.3, 0.3
@@ -77,6 +78,7 @@
                 on_press: app.stop()
 
             Image:
+                id:img_exit
                 source:"data/ui/btn_exit.png"
                 pos_hint: {"x":0.6, "y":0.15}
                 size_hint: 0.3, 0.3
