@@ -37,7 +37,7 @@
                 pos_hint: {"x":0, "y":-0.1}
                 size_hint: 1.5,1.5
 
-            # QR image
+            # QR Image
             Image:
                 id:img_qr
                 source:"data/qr/qregister_email.png"
@@ -56,6 +56,7 @@
         FloatLayout:
             # Show Button
             Button:
+                id:btn_show
                 canvas:
                     Color:
                         rgba: 1, 1, 1, 1
@@ -64,7 +65,7 @@
                         pos: self.pos
                 pos_hint: {"x":0.1, "y":0.15}
                 size_hint: 0.3, 0.3
-                on_press: root.generate_qr()
+                on_press: root.disable_button('show')
 
             # Show Image
             Image:
@@ -76,6 +77,7 @@
 
             # Exit Button
             Button:
+                id:btn_exit
                 canvas:
                     Color:
                         rgba: 1, 1, 1, 1
@@ -84,7 +86,7 @@
                         pos: self.pos
                 pos_hint: {"x":0.6, "y":0.15}
                 size_hint: 0.3, 0.3
-                on_press: app.stop()
+                on_press: root.disable_button('exit')
 
             # Exit Image
             Image:

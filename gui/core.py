@@ -15,14 +15,63 @@ db = firebase_init()
 
 class QRegisterLayout(Widget):
 
-    def generate_qr(self) -> None:
+    def enable_button(self, dt) -> None:
         """
-        Generate QR
+        Activate show button
 
+        :param dt: not used
         :return: None
         """
 
-        self.ids.img_show.source = 'data/ui/btn_show_clicked.png'
+        self.ids.btn_show.disabled = False
+
+    def disable_button(self, name) -> None:
+        """
+        Disable given button
+
+        :param name: button id name
+        :return: None
+        """
+        if name == 'show':
+            self.ids.img_show.source = 'data/ui/btn_show_clicked.png'
+            self.ids.btn_show.disabled = True
+
+            Clock.schedule_once(self.change_source, 0.5)
+
+        if name == 'exit':
+            self.ids.img_exit.source = 'data/ui/btn_exit_clicked.png'
+            self.ids.btn_exit.disabled = True
+
+            Clock.schedule_once(self.exit_from_app, 0.3)
+
+    def change_source(self, dt) -> None:
+        """
+        Change source of show button to normal
+
+        :param dt: not used
+        :return: None
+        """
+        self.ids.img_show.source = 'data/ui/btn_show.png'
+        Clock.schedule_once(self.generate_qr, 0.3)
+
+    @staticmethod
+    def exit_from_app() -> None:
+        """
+        Exit from app
+
+        :param dt: not used
+        :return:
+        """
+        App.get_running_app().stop()
+
+    def generate_qr(self, dt) -> None:
+        """
+        Generate QR
+
+        :param dt: not used
+        :return: None
+        """
+
         # Random cashier
         cashier_name = random.choice(['Deniz', 'Murat', 'Alkim', 'Humeyra'])
 
@@ -94,10 +143,8 @@ class QRegisterLayout(Widget):
         # Update Shop image
         self.ids.img_shop.source = 'data/logos/' + store_slug + '.png'
 
-        Clock.schedule_once(self.activate_button, 3)
-
-    def activate_button(self, dt) -> None:
-        self.ids.img_show.source = 'data/ui/btn_show.png'
+        # Enable button after 2 seconds
+        Clock.schedule_once(self.enable_button, 2)
 
     pass
 

@@ -12,27 +12,33 @@
         size: root.width, root.height
 
         FloatLayout:
+            # QRegister Logo
             Image:
                 source:"data/logos/qregister_horizontal.png"
                 pos_hint: {"x":0, "y":0.2}
                 size_hint: 1,1
 
         FloatLayout:
-
+            # Background image
             Image:
                 source:"data/ui/img_bg.png"
                 pos_hint: {"x":-0.65, "y":-0.4}
                 size_hint: 1.8,1.8
+
+            # Shop logo
             Image:
                 id:img_shop
                 source:"data/logos/no_receipt_found.png"
                 pos_hint: {"x":-0.3, "y":-0.13}
                 size_hint: 1.1,1.1
 
+            # Background image
             Image:
                 source:"data/ui/img_bg.png"
                 pos_hint: {"x":-0.15, "y":-0.4}
                 size_hint: 1.8,1.8
+
+            # QR Image
             Image:
                 id:img_qr
                 source:"data/qr/qregister_email.png"
@@ -48,8 +54,9 @@
 
 
         FloatLayout:
-
+            # Show Button
             Button:
+                id:btn_show
                 canvas:
                     Color:
                         rgba: 1, 1, 1, 1
@@ -58,15 +65,18 @@
                         pos: self.pos
                 pos_hint: {"x":0.2, "y":0.1}
                 size_hint: 0.3, 0.3
-                on_press: root.generate_qr()
+                on_press: root.disable_button('show')
 
+            # Show Image
             Image:
                 id:img_show
                 source:"data/ui/btn_show.png"
                 pos_hint: {"x":0.1, "y":0.15}
                 size_hint: 0.3, 0.3
 
+            # Exit Button
             Button:
+                id:btn_exit
                 canvas:
                     Color:
                         rgba: 1, 1, 1, 1
@@ -75,8 +85,9 @@
                         pos: self.pos
                 pos_hint: {"x":0.6, "y":0.15}
                 size_hint: 0.3, 0.3
-                on_press: app.stop()
+                on_press: root.disable_button('exit')
 
+            # Exit Image
             Image:
                 id:img_exit
                 source:"data/ui/btn_exit.png"
