@@ -26,9 +26,10 @@
 
 | Parameter                 | Default       | Description   |	
 | :------------------------ |:-------------:| :-------------|
-| -f --full_screen          |False          |run app on full screen
+| -f --fill_inventory       |False          |fill inventory values
 | -r --raspberry            |False          |set ui for raspberry pi
 | -u --update               |False          |update store data before running
+| -s --full_screen          |False          |run app on full screen
 
 ## Frequently Asked Questions (FAQ)
 

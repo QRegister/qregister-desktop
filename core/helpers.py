@@ -1,5 +1,7 @@
 import csv
+import os
 import shutil
+import time
 from random import randint, uniform
 from tempfile import NamedTemporaryFile
 
@@ -137,7 +139,7 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
                 products.append(item)
 
         except AttributeError:
-            print(f"{product.get('name')} is not in stock")
+            # print(f"{product.get('name')} is not in stock")
             continue
 
     total_price = round_n_decimals(number=total_price, decimal=2)
@@ -166,7 +168,7 @@ def generate_hash(receipt: dict) -> str:
                 item_count = str(receipt.get(barcode))
                 qr_hash += item_code + '?' + item_count + '%'
         except AttributeError:
-            print(f"{product.get('name')} is not in stock")
+            # print(f"{product.get('name')} is not in stock")
             continue
 
     return qr_hash
@@ -187,7 +189,7 @@ def generate_sample_receipt() -> dict:
         storage = product.get('storage')
         barcode = product.get('barcode')
 
-        if randint(0, 1) == 1 and storage != constant:
+        if randint(0, 1) == 1 and storage != constant and storage // constant > 1:
             if product.get('unit-of-measurement') == 'KG':
                 count = round_n_decimals(uniform(1, storage // constant), 2)
             else:
@@ -196,10 +198,19 @@ def generate_sample_receipt() -> dict:
             receipt[product.get('barcode')] = count
             update_csv(barcode=barcode, count=count)
 
-    if len(receipt) == 0:
-        generate_sample_receipt()
+    if not receipt:
+        fill_inventory()
     else:
         return receipt
+
+
+def fill_inventory():
+    """
+    Getting inventory values from repo
+
+    :return:
+    """
+    os.system("git checkout origin/main data/csv/inventory.csv")
 
 
 def update_csv(barcode: int, count: float) -> None:

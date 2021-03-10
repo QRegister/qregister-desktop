@@ -6,7 +6,7 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.core.window import Window
 from kivy.uix.widget import Widget
-from firebase.setup import firebase_init, send_data, send_firebase, execute_once
+from firebase.setup import firebase_init, send_data, send_firebase, update
 from core.helpers import convert_stores_to_list, currency_symbol, generate_sample_receipt, generate_hash, \
     convert_receipt_to_firebase
 
@@ -97,7 +97,8 @@ class QRegisterLayout(Widget):
 
         # Generate sample receipt
         receipt = generate_sample_receipt()
-
+        if not receipt:
+            receipt = generate_sample_receipt()
         # Add timestamp
         qr_secret = str(int(time.time() * 1000))
 
@@ -165,7 +166,7 @@ def run(store_update: bool, is_raspberry_pi: bool, is_full_screen: bool):
     Window.fullscreen = is_full_screen
 
     if store_update:
-        execute_once(db=db, stores=convert_stores_to_list())
+        update(db=db, stores=convert_stores_to_list())
     if is_raspberry_pi:
         root = QRegisterRaspberryApp()
     else:
