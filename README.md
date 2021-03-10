@@ -22,7 +22,7 @@
 
 - ```python main.py ```
 
-**Optional arguments: **
+**Optional arguments:**
 
 | Parameter                 | Default       | Description   |	
 | :------------------------ |:-------------:| :-------------|
