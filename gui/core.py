@@ -164,7 +164,7 @@ class QRegisterRaspberryApp(App):
         return QRegisterLayout()
 
 
-def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, inventory: bool) -> None:
+def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, inventory: bool, not_execute: bool) -> None:
     """
     Running QRegister App
 
@@ -172,6 +172,7 @@ def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, invento
     :param is_raspberry_pi: Is app running on Raspberry Pi?
     :param is_full_screen: Is it full screen?
     :param inventory: Fill inventory
+    :param not_execute: Do not run the app
     :return: None
     """
     Window.fullscreen = is_full_screen
@@ -184,4 +185,6 @@ def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, invento
         root = QRegisterRaspberryApp()
     else:
         root = QRegisterApp()
-    root.run()
+
+    if not not_execute:
+        root.run()
