@@ -81,7 +81,6 @@ def update_stores(db, stores: list):
     """
     for store in stores:
         send_store(db, store)
-    print("Stores updated")
 
 
 def send_store(db, store: dict):
@@ -92,7 +91,7 @@ def send_store(db, store: dict):
     :param store: Store dict
     :return:
     """
-    print(store['id'])
+    # print(store['id'])
     store_ref = db.collection('stores').document(store['id'])
 
     store_ref.set({

@@ -179,8 +179,10 @@ def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, invento
 
     if update_store:
         update(db=db, stores=convert_stores_to_list())
+        print("Stores updated")
     if inventory:
         fill_inventory()
+        print("Inventory filled")
     if is_raspberry_pi:
         root = QRegisterRaspberryApp()
     else:
