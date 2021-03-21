@@ -4,10 +4,8 @@ from tempfile import NamedTemporaryFile
 import shutil
 
 
-def new_count(barcode, count, product_list, fields):
+def new_count(barcode, count, product_list):
     temp_file = NamedTemporaryFile(mode='w', delete=False)
-    # temp_file = fields
-
     with open('../inventory mark1.csv', 'r', newline='') as csv_file, temp_file:
 
         csv_reader = csv.DictReader(csv_file)
@@ -43,16 +41,7 @@ with open('../inventory mark1.csv', 'r') as csv_file:
                 'unit_of_measurement': line['unit_of_measurement'], 'tax_rate': int(line['tax_rate'])}
 
         product_list.append(temp)
-        # print(line['storage'])
 
-        # uncomment what you want to print
-        # print(line['item_code'])
-        # print(line['barcode'])
-        # print(line['name'])
-        # print(line['unit_price'])
-        # print(line['unit_of_measurement'])
-        # print(line['tax_rate']
-    # print(product_list)
     fields = ['storage', 'item_code', 'barcode', 'name', 'unit_price', 'unit_of_measurement', 'tax_rate']
 
     random_barcode = random.randint(1001, 1006)

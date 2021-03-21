@@ -6,48 +6,6 @@ from random import randint, uniform
 from tempfile import NamedTemporaryFile
 
 
-def round_n_decimals(number: float, decimal: int) -> float:
-    """
-    Rounding float number to n decimal points
-
-    :param number: Float number
-    :param decimal: Decimal point coun
-    :return:
-    """
-    return round(float(number), decimal)
-
-
-def currency_symbol(currency: str) -> str:
-    """
-    Getting currency symbol from given currency
-
-    :param currency: Currency Text
-    :return: Currency symbol
-    """
-    if currency == 'TRY':
-        return 'TRY'
-    elif currency == 'USD':
-        return '$'
-    elif currency == 'EUR':
-        return '€'
-
-
-def read_csv(file: str) -> list:
-    """
-    Reading the given CSV file
-
-    :param file: Filename string
-    :return: List of all lines of CSV file
-    """
-    all_lines = []
-
-    with open(f'data/csv/{file}.csv', 'r') as csv_file:
-        lines = csv.DictReader(csv_file)
-        for line in lines:
-            all_lines.append(line)
-    return all_lines
-
-
 def convert_inventory_to_list() -> list:
     """
     Convert inventory to list
@@ -139,13 +97,37 @@ def convert_receipt_to_firebase(receipt: dict) -> (list, int, int):
                 products.append(item)
 
         except AttributeError:
-            # print(f"{product.get('name')} is not in stock")
+            print(f"{product.get('name')} is not in stock")
             continue
 
     total_price = round_n_decimals(number=total_price, decimal=2)
     total_tax = round_n_decimals(number=total_tax, decimal=2)
 
     return products, total_price, total_tax
+
+
+def currency_symbol(currency: str) -> str:
+    """
+    Getting currency symbol from given currency
+
+    :param currency: Currency Text
+    :return: Currency symbol
+    """
+    if currency == 'TRY':
+        return 'TRY'
+    elif currency == 'USD':
+        return '$'
+    elif currency == 'EUR':
+        return '€'
+
+
+def fill_inventory():
+    """
+    Getting inventory values from repo
+
+    :return:
+    """
+    os.system("git checkout origin/main data/csv/inventory.csv")
 
 
 def generate_hash(receipt: dict) -> str:
@@ -168,7 +150,7 @@ def generate_hash(receipt: dict) -> str:
                 item_count = str(receipt.get(barcode))
                 qr_hash += item_code + '?' + item_count + '%'
         except AttributeError:
-            # print(f"{product.get('name')} is not in stock")
+            print(f"{product.get('name')} is not in stock")
             continue
 
     return qr_hash
@@ -189,7 +171,7 @@ def generate_sample_receipt() -> dict:
         storage = product.get('storage')
         barcode = product.get('barcode')
 
-        if randint(0, 1) == 1 and storage != constant and storage // constant > 1:
+        if randint(0, 20) == 1 and storage != constant and storage // constant > 1:
             if product.get('unit-of-measurement') == 'KG':
                 count = round_n_decimals(uniform(1, storage // constant), 2)
             else:
@@ -204,13 +186,31 @@ def generate_sample_receipt() -> dict:
         return receipt
 
 
-def fill_inventory():
+def read_csv(file: str) -> list:
     """
-    Getting inventory values from repo
+    Reading the given CSV file
 
+    :param file: Filename string
+    :return: List of all lines of CSV file
+    """
+    all_lines = []
+
+    with open(f'data/csv/{file}.csv', 'r') as csv_file:
+        lines = csv.DictReader(csv_file)
+        for line in lines:
+            all_lines.append(line)
+    return all_lines
+
+
+def round_n_decimals(number: float, decimal: int) -> float:
+    """
+    Rounding float number to n decimal points
+
+    :param number: Float number
+    :param decimal: Decimal point coun
     :return:
     """
-    os.system("git checkout origin/main data/csv/inventory.csv")
+    return round(float(number), decimal)
 
 
 def update_csv(barcode: int, count: float) -> None:

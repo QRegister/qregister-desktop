@@ -169,7 +169,7 @@ def run(update_store: bool, is_raspberry_pi: bool, is_full_screen: bool, invento
     Running QRegister App
 
     :param update_store: Update Store data on Firebase
-    :param is_raspberry_pi: Is app runing on Raspberry Pi?
+    :param is_raspberry_pi: Is app running on Raspberry Pi?
     :param is_full_screen: Is it full screen?
     :param inventory: Fill inventory
     :return: None
