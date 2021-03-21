@@ -171,7 +171,7 @@ def generate_sample_receipt() -> dict:
         storage = product.get('storage')
         barcode = product.get('barcode')
 
-        if randint(0, 20) == 1 and storage != constant and storage // constant > 1:
+        if randint(0, 25) == 1 and storage != constant and storage // constant > 1:
             if product.get('unit-of-measurement') == 'KG':
                 count = round_n_decimals(uniform(1, storage // constant), 2)
             else:
