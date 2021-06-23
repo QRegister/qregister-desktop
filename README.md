@@ -18,9 +18,13 @@
 
 - ```python install -r requirements.txt ```
 
+**Create a Firebase project**
+- Put ```serviceAccountKey.json``` inside the firebase folder 
+
 **Run GUI from command line:**
 
 - ```python main.py ```
+
 
 **Optional arguments:**
 
