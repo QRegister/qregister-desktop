@@ -26,7 +26,7 @@ opencv-python==4.5.2.54
 packaging==20.9
 Pillow==9.3.0
 proto-plus==1.18.1
-protobuf==3.15.6
+protobuf==3.18.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.20
