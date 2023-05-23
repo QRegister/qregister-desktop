@@ -37,7 +37,7 @@ PyQRCode==1.2.1
 pytz==2021.1
 pyzbar==0.1.8
 qrcode==6.1
-requests==2.25.1
+requests==2.31.0
 rsa==4.7.2
 six==1.15.0
 uritemplate==3.0.1
